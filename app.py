@@ -1,7 +1,9 @@
 import sqlite3
 import os
 import datetime
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, request
+
+from blog_generator import generate_post
 
 app = Flask(__name__)
 
@@ -83,6 +85,17 @@ def blog_post(post_id):
     if post is None:
         abort(404)
     return render_template('blog_post.html', post=post)
+
+@app.route('/run-blog-generator')
+def run_blog_generator():
+    key = request.args.get('key', '')
+    if key != os.environ.get('CRON_SECRET', ''):
+        return "Forbidden", 403
+    try:
+        generate_post()
+        return "Blog post generated successfully", 200
+    except Exception as e:
+        return f"Error: {e}", 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

@@ -67,7 +67,7 @@ def make_slug(title: str) -> str:
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-def main():
+def generate_post():
     try:
         # ── Step 1: Pick a random topic ──────────────────────────────────────
         topic = random.choice(TOPICS)
@@ -182,4 +182,4 @@ Use exactly these three keys:
         raise  # re-raise so Railway marks the cron job as failed
 
 if __name__ == "__main__":
-    main()
+    generate_post()
