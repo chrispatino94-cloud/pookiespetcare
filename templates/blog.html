@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Pookie's Pet Care | Dog Walking &amp; Pet Sitting | South Denver Metro</title>
+  <meta name="description" content="Pet care tips, dog walking advice, and local insights from Pookie's Pet Care LLC — serving Lone Tree, Parker, Castle Rock, and Highlands Ranch." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── CSS Variables (matches index.html exactly) ─── */
+    :root {
+      --g-dark:    #192f19;
+      --g-mid:     #2b5220;
+      --g-light:   #4a7c3f;
+      --cream:     #f6f1e6;
+      --cream-dk:  #ede7d7;
+      --amber:     #c47a2a;
+      --amber-lt:  #e8963a;
+      --text:      #121f12;
+      --text-mid:  #495949;
+      --text-lt:   #7a8c7a;
+      --white:     #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    /* ── NAV (copied from index.html) ──────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 18px 52px;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background .3s, box-shadow .3s;
+    }
+    nav.scrolled { background: var(--g-dark); box-shadow: 0 2px 24px rgba(0,0,0,.35); }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img {
+      height: 52px; width: auto;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.35));
+      transition: transform .2s;
+    }
+    .nav-logo img:hover { transform: scale(1.04); }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,.82); text-decoration: none;
+      font-size: .88rem; font-weight: 500; letter-spacing: .03em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--amber-lt); }
+    .nav-cta {
+      background: var(--amber) !important; color: var(--white) !important;
+      padding: 10px 22px; border-radius: 50px;
+      transition: background .2s, transform .2s !important;
+    }
+    .nav-cta:hover { background: var(--amber-lt) !important; transform: translateY(-1px); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      justify-content: center; align-items: center;
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+      border-radius: 12px; cursor: pointer;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: transform .25s, opacity .25s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    nav a:focus-visible, .hamburger:focus-visible {
+      outline: 2px solid var(--amber-lt); outline-offset: 3px; border-radius: 6px;
+    }
+
+    /* ── SHARED SECTION STYLES ──────────────────────── */
+    .label {
+      font-size: .72rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 10px;
+    }
+    h2 {
+      font-family: 'Fraunces', serif; font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+      font-weight: 600; color: var(--text); line-height: 1.14;
+      letter-spacing: -.025em; margin-bottom: 14px;
+    }
+    .btn-ghost {
+      color: var(--g-mid); text-decoration: none;
+      font-size: .95rem; font-weight: 500; padding-bottom: 2px;
+      border-bottom: 1px solid rgba(43,82,32,.3);
+      transition: color .2s, border-color .2s;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--text); }
+
+    /* ── BLOG HERO ───────────────────────────────────── */
+    .blog-hero {
+      background: var(--g-dark);
+      padding: 140px 52px 80px;
+      position: relative; overflow: hidden;
+    }
+    .blog-hero::after {
+      /* Subtle radial glow matching the homepage hero */
+      content: '';
+      position: absolute; top: -10%; right: -5%; width: 65%; height: 120%;
+      background: radial-gradient(ellipse at 60% 40%, rgba(74,124,63,.2) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .blog-hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .blog-hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 600; color: var(--white); line-height: 1.1;
+      letter-spacing: -.035em; margin-bottom: 0;
+    }
+    .blog-hero h1 em { font-style: italic; font-weight: 300; color: var(--amber-lt); }
+
+    /* ── BLOG POST LIST ──────────────────────────────── */
+    .blog-list-sec {
+      padding: 72px 52px 96px;
+      background: var(--cream);
+    }
+    .blog-list-inner { max-width: 1200px; margin: 0 auto; }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+      margin-bottom: 56px;
+    }
+
+    /* Each post card */
+    .blog-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px 30px;
+      border: 1px solid var(--cream-dk);
+      display: flex; flex-direction: column;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,.08); }
+
+    .blog-card-date {
+      font-size: .75rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-lt);
+      margin-bottom: 12px;
+    }
+    .blog-card-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.28rem; font-weight: 600;
+      color: var(--text); line-height: 1.25;
+      letter-spacing: -.01em; margin-bottom: 14px;
+    }
+    .blog-card-title a {
+      color: inherit; text-decoration: none;
+      transition: color .2s;
+    }
+    .blog-card-title a:hover { color: var(--g-mid); }
+
+    .blog-card-excerpt {
+      font-size: .9rem; color: var(--text-mid); line-height: 1.7;
+      font-weight: 300; flex: 1; margin-bottom: 22px;
+    }
+    .blog-card-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .85rem; font-weight: 600; color: var(--g-mid);
+      text-decoration: none; letter-spacing: .01em;
+      transition: gap .2s, color .2s;
+    }
+    .blog-card-link:hover { gap: 10px; color: var(--amber); }
+
+    /* Amber accent bar — hidden when card has a featured image */
+    .blog-card::before {
+      content: ''; display: block;
+      width: 36px; height: 3px;
+      background: var(--amber); border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .blog-card.has-image::before { display: none; }
+
+    /* Featured image inside a card */
+    .blog-card-img {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      border-radius: 12px; margin-bottom: 16px;
+      display: block;
+    }
+
+    /* Empty state */
+    .blog-empty {
+      text-align: center;
+      padding: 80px 24px;
+      color: var(--text-mid);
+      font-size: 1.05rem; line-height: 1.7;
+    }
+
+    /* Back to home link row */
+    .blog-back { margin-top: 8px; }
+
+    /* ── FOOTER (copied from index.html) ─────────────── */
+    footer { background: var(--text); padding: 56px 52px 32px; }
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px;
+      padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .footer-col-title { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 16px; }
+    .footer-text { font-size: .8rem; color: rgba(255,255,255,.45); line-height: 1.75; margin-top: 10px; }
+    .footer-links { list-style: none; display: grid; gap: 10px; }
+    .footer-links a, .footer-links li { font-size: .83rem; color: rgba(255,255,255,.55); font-weight: 400; text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--amber-lt); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto; padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 20px; flex-wrap: wrap;
+      font-size: .76rem; color: rgba(255,255,255,.35);
+    }
+
+    /* Floating call button (mobile) */
+    .fab-call {
+      display: none;
+      position: fixed; bottom: 20px; right: 20px; z-index: 300;
+      background: var(--amber); color: var(--white); text-decoration: none;
+      align-items: center; gap: 8px;
+      padding: 14px 22px; border-radius: 50px;
+      font-weight: 700; font-size: .92rem;
+      box-shadow: 0 8px 28px rgba(196,122,42,.55);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .fab-call:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(196,122,42,.65); }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 820px) {
+      nav { padding: 14px 20px; }
+      .hamburger { display: flex; }
+      .nav-links {
+        position: fixed; top: 76px; left: 12px; right: 12px;
+        flex-direction: column; align-items: stretch; gap: 4px;
+        background: var(--g-dark);
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 16px; padding: 16px;
+        transform: translateY(-12px); opacity: 0; pointer-events: none;
+        transition: opacity .25s, transform .25s;
+        z-index: 199;
+      }
+      .nav-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; padding: 12px 16px; border-radius: 10px; font-size: .95rem; }
+      .nav-links a:hover { background: rgba(255,255,255,.07); }
+      .nav-cta { text-align: center; border-radius: 10px !important; }
+
+      .fab-call { display: flex; }
+
+      .blog-hero { padding: 110px 24px 60px; }
+      .blog-list-sec { padding: 48px 24px 64px; }
+      .blog-grid { grid-template-columns: 1fr; }
+
+      footer { padding: 40px 24px 90px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────── -->
+<!-- Links updated to use /# anchors so they work from this page -->
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <img src="{{ url_for('static', filename='pookies-logo.png') }}" alt="Pookie's Pet Care" />
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#reviews">Reviews</a></li>
+    <li><a href="/#areas">Areas</a></li>
+    <li><a href="/blog" style="color: var(--amber-lt);">Blog</a></li>
+    <li><a href="#" class="nav-cta phone-link">📱 Call Chris</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────── -->
+<div class="blog-hero">
+  <div class="blog-hero-inner">
+    <p class="label">Pookie's Blog</p>
+    <h1>Tips, stories, and advice<br><em>for dog owners.</em></h1>
+  </div>
+</div>
+
+<!-- ─── BLOG POST LIST ────────────────────────────────── -->
+<section class="blog-list-sec">
+  <div class="blog-list-inner">
+
+    {% if posts %}
+      <div class="blog-grid">
+        {% for post in posts %}
+        <div class="blog-card{% if post['image_filename'] %} has-image{% endif %}">
+          {% if post['image_filename'] %}
+          <img class="blog-card-img"
+               src="{{ url_for('static', filename='blog_images/' + post['image_filename']) }}"
+               alt="{{ post['title'] }}">
+          {% endif %}
+          <div class="blog-card-date">{{ post['created_at'] | format_date }}</div>
+          <h2 class="blog-card-title">
+            <a href="/blog/{{ post['id'] }}">{{ post['title'] }}</a>
+          </h2>
+          <p class="blog-card-excerpt">{{ post['excerpt'] }}</p>
+          <a href="/blog/{{ post['id'] }}" class="blog-card-link">Read more →</a>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="blog-empty">
+        <p>Check back soon — our first post is on its way! 🐾</p>
+      </div>
+    {% endif %}
+
+    <div class="blog-back">
+      <a href="/" class="btn-ghost">← Back to Home</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <img src="{{ url_for('static', filename='pookies-logo.png') }}" alt="Pookie's Pet Care" style="height:64px; width:auto; filter:brightness(0) invert(1) opacity(0.65);" />
+      <p class="footer-text">
+        Dog walking, drop-ins, overnight care &amp; weekend pet sitting<br>
+        in the South Denver Metro, CO.<br><br>
+        Owner: Chris Patino · Licensed LLC &amp; Insured
+      </p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="/#services">Dog Walking</a></li>
+        <li><a href="/#services">Drop-In Visits</a></li>
+        <li><a href="/#services">Overnight / House Sitting</a></li>
+        <li><a href="/#services">Weekend Package</a></li>
+        <li><a href="/blog">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="#" class="phone-link">📱 Call or Text Chris</a></li>
+        <li><a href="https://pookiespetcare.com">pookiespetcare.com</a></li>
+        <li>Holidays &amp; Weekends Available</li>
+        <li>Free Meet &amp; Greet</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="yr"></span> Pookie's Pet Care LLC · All rights reserved.</span>
+    <span>Serving Lone Tree · Parker · Castle Rock · Highlands Ranch · Aurora · Bennett, CO</span>
+  </div>
+</footer>
+
+<!-- Floating call button (mobile only) -->
+<a href="#" class="fab-call phone-link">📱 Call Chris</a>
+
+<script>
+  // ══════════════════════════════════════════════════
+  // ✏️  Update these to match index.html when you add the real number
+  const PHONE_TEL     = '+15856233030';
+  const PHONE_DISPLAY = '(585) 623-3030';
+  // ══════════════════════════════════════════════════
+
+  document.querySelectorAll('.phone-link').forEach(el => {
+    el.href = `tel:${PHONE_TEL}`;
+  });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Nav scroll background
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks   = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+  });
+
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!nav.contains(e.target)) {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+
+</body>
+</html>

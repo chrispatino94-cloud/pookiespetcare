@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ post['title'] }} | Pookie's Pet Care Blog</title>
+  <meta name="description" content="{{ post['excerpt'] }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── CSS Variables (matches index.html exactly) ─── */
+    :root {
+      --g-dark:    #192f19;
+      --g-mid:     #2b5220;
+      --g-light:   #4a7c3f;
+      --cream:     #f6f1e6;
+      --cream-dk:  #ede7d7;
+      --amber:     #c47a2a;
+      --amber-lt:  #e8963a;
+      --text:      #121f12;
+      --text-mid:  #495949;
+      --text-lt:   #7a8c7a;
+      --white:     #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    /* ── NAV (copied from index.html) ──────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 18px 52px;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background .3s, box-shadow .3s;
+    }
+    nav.scrolled { background: var(--g-dark); box-shadow: 0 2px 24px rgba(0,0,0,.35); }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img {
+      height: 52px; width: auto;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.35));
+      transition: transform .2s;
+    }
+    .nav-logo img:hover { transform: scale(1.04); }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,.82); text-decoration: none;
+      font-size: .88rem; font-weight: 500; letter-spacing: .03em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--amber-lt); }
+    .nav-cta {
+      background: var(--amber) !important; color: var(--white) !important;
+      padding: 10px 22px; border-radius: 50px;
+      transition: background .2s, transform .2s !important;
+    }
+    .nav-cta:hover { background: var(--amber-lt) !important; transform: translateY(-1px); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      justify-content: center; align-items: center;
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+      border-radius: 12px; cursor: pointer;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: transform .25s, opacity .25s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    nav a:focus-visible, .hamburger:focus-visible {
+      outline: 2px solid var(--amber-lt); outline-offset: 3px; border-radius: 6px;
+    }
+
+    /* ── POST HERO ───────────────────────────────────── */
+    .post-hero {
+      background: var(--g-dark);
+      padding: 140px 52px 80px;
+      position: relative; overflow: hidden;
+    }
+    .post-hero::after {
+      content: '';
+      position: absolute; top: -10%; right: -5%; width: 65%; height: 120%;
+      background: radial-gradient(ellipse at 60% 40%, rgba(74,124,63,.2) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .post-hero-inner {
+      position: relative; z-index: 1;
+      max-width: 760px; margin: 0 auto;
+    }
+    .post-hero-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--amber-lt); text-decoration: none;
+      font-size: .82rem; font-weight: 500; letter-spacing: .04em;
+      margin-bottom: 28px;
+      transition: color .2s;
+    }
+    .post-hero-back:hover { color: var(--white); }
+    .post-date {
+      font-size: .75rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--amber);
+      margin-bottom: 16px;
+    }
+    .post-hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 600; color: var(--white); line-height: 1.12;
+      letter-spacing: -.03em;
+    }
+
+    /* ── POST CONTENT BODY ───────────────────────────── */
+    .post-body-sec {
+      background: var(--white);
+      padding: 72px 52px 96px;
+    }
+    .post-body {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* Back link at top of content area */
+    .post-body-back-top {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--g-mid); text-decoration: none;
+      font-size: .85rem; font-weight: 600;
+      margin-bottom: 40px;
+      border-bottom: 1px solid rgba(43,82,32,.25);
+      padding-bottom: 2px;
+      transition: color .2s, border-color .2s;
+    }
+    .post-body-back-top:hover { color: var(--amber); border-color: var(--amber); }
+
+    /* The GPT-generated HTML content */
+    .post-content {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+      font-weight: 300;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* Style for <p> tags inside the post content */
+    .post-content p {
+      margin-bottom: 1.5em;
+    }
+
+    /* Style for <h2> tags inside the post content */
+    .post-content h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--g-mid);
+      line-height: 1.25;
+      letter-spacing: -.02em;
+      margin: 2em 0 .75em;
+    }
+
+    /* Style for <ul> and <li> tags inside the post content */
+    .post-content ul {
+      list-style: none;
+      margin: 0 0 1.5em;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .post-content li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+    .post-content li::before {
+      content: '✦';
+      color: var(--amber);
+      font-size: .65rem;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    /* Back to blog link at bottom */
+    .post-body-back-bottom {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 56px;
+      color: var(--g-mid); text-decoration: none;
+      font-size: .85rem; font-weight: 600;
+      border-bottom: 1px solid rgba(43,82,32,.25);
+      padding-bottom: 2px;
+      transition: color .2s, border-color .2s;
+    }
+    .post-body-back-bottom:hover { color: var(--amber); border-color: var(--amber); }
+
+    /* ── FEATURED IMAGE ──────────────────────────────── */
+    .post-featured-img img {
+      width: 100%; max-height: 480px; object-fit: cover; display: block;
+    }
+
+    /* ── FOOTER (copied from index.html) ─────────────── */
+    footer { background: var(--text); padding: 56px 52px 32px; }
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px;
+      padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .footer-col-title { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 16px; }
+    .footer-text { font-size: .8rem; color: rgba(255,255,255,.45); line-height: 1.75; margin-top: 10px; }
+    .footer-links { list-style: none; display: grid; gap: 10px; }
+    .footer-links a, .footer-links li { font-size: .83rem; color: rgba(255,255,255,.55); font-weight: 400; text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--amber-lt); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto; padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 20px; flex-wrap: wrap;
+      font-size: .76rem; color: rgba(255,255,255,.35);
+    }
+
+    /* Floating call button (mobile) */
+    .fab-call {
+      display: none;
+      position: fixed; bottom: 20px; right: 20px; z-index: 300;
+      background: var(--amber); color: var(--white); text-decoration: none;
+      align-items: center; gap: 8px;
+      padding: 14px 22px; border-radius: 50px;
+      font-weight: 700; font-size: .92rem;
+      box-shadow: 0 8px 28px rgba(196,122,42,.55);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .fab-call:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(196,122,42,.65); }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 820px) {
+      nav { padding: 14px 20px; }
+      .hamburger { display: flex; }
+      .nav-links {
+        position: fixed; top: 76px; left: 12px; right: 12px;
+        flex-direction: column; align-items: stretch; gap: 4px;
+        background: var(--g-dark);
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 16px; padding: 16px;
+        transform: translateY(-12px); opacity: 0; pointer-events: none;
+        transition: opacity .25s, transform .25s;
+        z-index: 199;
+      }
+      .nav-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; padding: 12px 16px; border-radius: 10px; font-size: .95rem; }
+      .nav-links a:hover { background: rgba(255,255,255,.07); }
+      .nav-cta { text-align: center; border-radius: 10px !important; }
+
+      .fab-call { display: flex; }
+
+      .post-hero { padding: 110px 24px 60px; }
+      .post-body-sec { padding: 48px 24px 64px; }
+
+      footer { padding: 40px 24px 90px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────── -->
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <img src="{{ url_for('static', filename='pookies-logo.png') }}" alt="Pookie's Pet Care" />
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#reviews">Reviews</a></li>
+    <li><a href="/#areas">Areas</a></li>
+    <li><a href="/blog" style="color: var(--amber-lt);">Blog</a></li>
+    <li><a href="#" class="nav-cta phone-link">📱 Call Chris</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── POST HERO ─────────────────────────────────────── -->
+<div class="post-hero">
+  <div class="post-hero-inner">
+    <a href="/blog" class="post-hero-back">← Back to Blog</a>
+    <p class="post-date">{{ post['created_at'] | format_date }}</p>
+    <h1>{{ post['title'] }}</h1>
+  </div>
+</div>
+
+<!-- ─── FEATURED IMAGE (shown between hero and content when available) ─── -->
+{% if post['image_filename'] %}
+<div class="post-featured-img">
+  <img src="{{ url_for('static', filename='blog_images/' + post['image_filename']) }}"
+       alt="{{ post['title'] }}">
+</div>
+{% endif %}
+
+<!-- ─── POST CONTENT ──────────────────────────────────── -->
+<section class="post-body-sec">
+  <div class="post-body">
+    <a href="/blog" class="post-body-back-top">← Back to Blog</a>
+
+    <!-- post.content is HTML generated by GPT — the | safe filter renders it as real HTML -->
+    <div class="post-content">
+      {{ post['content'] | safe }}
+    </div>
+
+    <a href="/blog" class="post-body-back-bottom">← Back to Blog</a>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <img src="{{ url_for('static', filename='pookies-logo.png') }}" alt="Pookie's Pet Care" style="height:64px; width:auto; filter:brightness(0) invert(1) opacity(0.65);" />
+      <p class="footer-text">
+        Dog walking, drop-ins, overnight care &amp; weekend pet sitting<br>
+        in the South Denver Metro, CO.<br><br>
+        Owner: Chris Patino · Licensed LLC &amp; Insured
+      </p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="/#services">Dog Walking</a></li>
+        <li><a href="/#services">Drop-In Visits</a></li>
+        <li><a href="/#services">Overnight / House Sitting</a></li>
+        <li><a href="/#services">Weekend Package</a></li>
+        <li><a href="/blog">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="#" class="phone-link">📱 Call or Text Chris</a></li>
+        <li><a href="https://pookiespetcare.com">pookiespetcare.com</a></li>
+        <li>Holidays &amp; Weekends Available</li>
+        <li>Free Meet &amp; Greet</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="yr"></span> Pookie's Pet Care LLC · All rights reserved.</span>
+    <span>Serving Lone Tree · Parker · Castle Rock · Highlands Ranch · Aurora · Bennett, CO</span>
+  </div>
+</footer>
+
+<!-- Floating call button (mobile only) -->
+<a href="#" class="fab-call phone-link">📱 Call Chris</a>
+
+<script>
+  // ══════════════════════════════════════════════════
+  // ✏️  Update these to match index.html when you add the real number
+  const PHONE_TEL     = '+15856233030';
+  const PHONE_DISPLAY = '(585) 623-3030';
+  // ══════════════════════════════════════════════════
+
+  document.querySelectorAll('.phone-link').forEach(el => {
+    el.href = `tel:${PHONE_TEL}`;
+  });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Nav scroll background
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks   = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+  });
+
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!nav.contains(e.target)) {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+
+</body>
+</html>
