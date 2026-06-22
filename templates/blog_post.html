@@ -206,6 +206,11 @@
       display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px;
       padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.1);
     }
+    .footer-logo {
+      height: 64px; width: auto; max-width: 72px;
+      object-fit: contain; display: block;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.35));
+    }
     .footer-col-title { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 16px; }
     .footer-text { font-size: .8rem; color: rgba(255,255,255,.45); line-height: 1.75; margin-top: 10px; }
     .footer-links { list-style: none; display: grid; gap: 10px; }
@@ -317,7 +322,7 @@
 <footer>
   <div class="footer-grid">
     <div>
-      <img src="{{ url_for('static', filename='pookies-logo.png') }}" alt="Pookie's Pet Care" style="height:64px; width:auto; filter:brightness(0) invert(1) opacity(0.65);" />
+      <img src="{{ url_for('static', filename='pookies-logo.png') }}" alt="Pookie's Pet Care" class="footer-logo" />
       <p class="footer-text">
         Dog walking, drop-ins, overnight care &amp; weekend pet sitting<br>
         in the South Denver Metro, CO.<br><br>
