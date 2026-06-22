@@ -18,8 +18,11 @@ import sqlite3
 import base64
 import re
 import requests
+import datetime
 from dotenv import load_dotenv
 from openai import OpenAI
+
+DEFAULT_BLOG_IMAGE = "default-dog-care.jpg"
 
 # Load .env so OPENAI_API_KEY is available as an environment variable
 load_dotenv()
@@ -149,9 +152,9 @@ Use exactly these three keys:
             print(f"Image saved: static/blog_images/{image_filename}")
 
         except Exception as img_err:
-            # Image generation failed — log it and continue without an image
-            print(f"⚠️  Image generation failed (post will still be saved): {img_err}")
-            image_filename = None
+            # Image generation failed — use the shared fallback so cards never look broken
+            print(f"⚠️  Image generation failed, using fallback: {img_err}")
+            image_filename = DEFAULT_BLOG_IMAGE
 
         # ── Step 7: Save to blog.db ────────────────────────────────────────────
         # os.path.abspath(__file__) ensures we find blog.db relative to THIS script,
@@ -160,11 +163,12 @@ Use exactly these three keys:
         conn = sqlite3.connect(db_path)
 
         # published=1 means the post goes live immediately on the site.
-        # Change to 0 if you want a "draft" mode in the future.
+        # created_at is set explicitly so each post gets the real publish date.
+        created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         conn.execute(
-            """INSERT INTO blog_posts (title, slug, content, excerpt, image_filename, published)
-               VALUES (?, ?, ?, ?, ?, 1)""",
-            (title, slug, content, excerpt, image_filename),
+            """INSERT INTO blog_posts (title, slug, content, excerpt, image_filename, published, created_at)
+               VALUES (?, ?, ?, ?, ?, 1, ?)""",
+            (title, slug, content, excerpt, image_filename, created_at),
         )
         conn.commit()
         conn.close()

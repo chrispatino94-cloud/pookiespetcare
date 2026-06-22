@@ -195,8 +195,15 @@
     .post-body-back-bottom:hover { color: var(--amber); border-color: var(--amber); }
 
     /* ── FEATURED IMAGE ──────────────────────────────── */
+    .post-featured-img {
+      background: var(--cream-dk);
+      max-height: 480px;
+      overflow: hidden;
+    }
     .post-featured-img img {
-      width: 100%; max-height: 480px; object-fit: cover; display: block;
+      width: 100%; height: 100%; max-height: 480px;
+      object-fit: cover; display: block;
+      aspect-ratio: 16 / 9;
     }
 
     /* ── FOOTER (copied from index.html) ─────────────── */
@@ -296,13 +303,13 @@
   </div>
 </div>
 
-<!-- ─── FEATURED IMAGE (shown between hero and content when available) ─── -->
-{% if post['image_filename'] %}
+<!-- ─── FEATURED IMAGE ─────────────────────────────────── -->
+{% set img = blog_image(post['image_filename']) %}
+{% set img_alt = post['title'] if post['image_filename'] else blog_default_alt %}
 <div class="post-featured-img">
-  <img src="{{ url_for('static', filename='blog_images/' + post['image_filename']) }}"
-       alt="{{ post['title'] }}">
+  <img src="{{ url_for('static', filename='blog_images/' + img) }}"
+       alt="{{ img_alt }}">
 </div>
-{% endif %}
 
 <!-- ─── POST CONTENT ──────────────────────────────────── -->
 <section class="post-body-sec">

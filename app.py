@@ -7,6 +7,22 @@ from blog_generator import generate_post
 
 app = Flask(__name__)
 
+BLOG_DEFAULT_IMAGE = 'default-dog-care.jpg'
+BLOG_DEFAULT_ALT = "Dog care tips from Pookie's Pet Care"
+
+def get_blog_image_filename(image_filename):
+    """Return the post image or the shared fallback asset."""
+    if image_filename:
+        return image_filename
+    return BLOG_DEFAULT_IMAGE
+
+@app.context_processor
+def blog_context():
+    return {
+        'blog_image': get_blog_image_filename,
+        'blog_default_alt': BLOG_DEFAULT_ALT,
+    }
+
 # ── Database helpers ──────────────────────────────────────────────────────────
 
 def get_db_connection():
