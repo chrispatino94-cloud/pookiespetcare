@@ -11,17 +11,20 @@ BLOG_DEFAULT_IMAGE = 'default-dog-care.jpg'
 BLOG_DEFAULT_ALT = "Dog care tips from Pookie's Pet Care"
 
 # Google Business Profile links.
-# Get from Google Maps → Pookie's Pet Care → Share → copy link.
 # For "Leave a review": Google Business Profile → Ask for reviews → copy link,
 # or use: https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID
-# TODO: Replace None with real URLs before launch.
-GOOGLE_REVIEWS_URL = None
+GOOGLE_REVIEWS_URL = (
+    "https://www.google.com/search?sca_esv=6afbdd065017325d&hl=en-US"
+    "&rlz=1CDGOYI_enUS972US972&cs=1&output=search&kgmid=%2Fg%2F11m68zbvk2"
+    "&q=Pookie%E2%80%99s%20Pet%20Care%20-%20Centennial%20Dog%20Walking%20and%20Pet%20Sitting"
+    "&shem=epsd1%2Cltac%2Crimspwouoe&shndl=30&source=sh%2Fx%2Floc%2Fact%2Fm4%2F3"
+)
 GOOGLE_WRITE_REVIEW_URL = None
 
 
 def get_google_write_review_url():
-    """Prefer dedicated write-review URL; fall back to profile/reviews page."""
-    return GOOGLE_WRITE_REVIEW_URL or GOOGLE_REVIEWS_URL
+    """Return write-review URL only when explicitly set."""
+    return GOOGLE_WRITE_REVIEW_URL
 
 GOOGLE_RATING = {
     "score": "5.0",
