@@ -322,17 +322,172 @@
     }
     .testi-sec h2 { color: var(--white); }
     .testi-sec .label { color: var(--amber-lt); }
-    .testi-sec .sub-text { color: rgba(255,255,255,.6); }
-    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 48px; }
-    .testi-card {
-      background: rgba(255,255,255,.055);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 20px; padding: 28px;
+    .testi-sec .sub-text { color: rgba(255,255,255,.72); line-height: 1.65; }
+    .testi-top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 8px;
     }
-    .stars { color: var(--amber-lt); font-size: .85rem; letter-spacing: 2px; margin-bottom: 14px; }
-    .testi-text { font-size: .92rem; color: rgba(255,255,255,.83); line-height: 1.72; font-weight: 300; font-style: italic; margin-bottom: 18px; }
-    .testi-who { font-size: .8rem; font-weight: 600; color: rgba(255,255,255,.55); }
-    .testi-who span { color: rgba(255,255,255,.35); font-weight: 400; }
+    .testi-header { max-width: 640px; }
+    .testi-subrating {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--amber-lt);
+      margin: 10px 0 12px;
+    }
+    .testi-support {
+      font-size: .95rem;
+      color: rgba(255,255,255,.68);
+      line-height: 1.65;
+      font-weight: 300;
+      max-width: 560px;
+    }
+    .testi-summary-card {
+      background: var(--cream);
+      border: 1px solid var(--cream-dk);
+      border-radius: 20px;
+      padding: 28px 32px;
+      text-align: center;
+      min-width: 220px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.18);
+    }
+    .testi-score {
+      font-family: 'Fraunces', serif;
+      font-size: 3.2rem;
+      font-weight: 600;
+      color: var(--g-dark);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .testi-summary-stars {
+      color: var(--amber);
+      font-size: 1rem;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+    .testi-summary-count {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .testi-summary-note {
+      font-size: .72rem;
+      color: var(--text-lt);
+      line-height: 1.5;
+      font-weight: 400;
+    }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+      margin-top: 36px;
+    }
+    .testi-card {
+      background: var(--cream);
+      border: 1px solid var(--cream-dk);
+      border-radius: 18px;
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: 0 4px 20px rgba(0,0,0,.12);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .testi-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(0,0,0,.16);
+    }
+    .testi-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .testi-photo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--cream-dk);
+    }
+    .stars { color: var(--amber); font-size: .88rem; letter-spacing: 2px; }
+    .testi-service {
+      display: inline-block;
+      font-size: .66rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--g-mid);
+      background: rgba(196,122,42,.12);
+      border: 1px solid rgba(196,122,42,.22);
+      padding: 5px 11px;
+      border-radius: 50px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+    .testi-text {
+      font-size: .93rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+    .testi-who {
+      font-size: .84rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: auto;
+      padding-top: 4px;
+      border-top: 1px solid var(--cream-dk);
+    }
+    .testi-who span { color: var(--text-lt); font-weight: 400; }
+    .testi-emotional {
+      text-align: center;
+      max-width: 680px;
+      margin: 40px auto 0;
+      font-size: .98rem;
+      color: rgba(255,255,255,.72);
+      line-height: 1.65;
+      font-weight: 300;
+      font-style: italic;
+    }
+    .testi-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+    .testi-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 26px; border-radius: 50px;
+      font-size: .9rem; font-weight: 600; text-decoration: none;
+      transition: transform .2s, background .2s, border-color .2s;
+    }
+    .testi-btn:hover { transform: translateY(-2px); }
+    a.testi-btn:hover { transform: translateY(-2px); }
+    span.testi-btn { cursor: default; }
+    span.testi-btn:hover { transform: none; }
+    .testi-btn-primary {
+      background: var(--amber); color: var(--white);
+      border: 1px solid var(--amber);
+    }
+    .testi-btn-primary:hover { background: var(--amber-lt); border-color: var(--amber-lt); }
+    .testi-btn-ghost {
+      background: transparent; color: rgba(255,255,255,.88);
+      border: 1px solid rgba(255,255,255,.28);
+    }
+    .testi-btn-ghost:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.45);
+    }
 
     /* ── AREAS ─────────────────────────────────── */
     .areas-sec { background: var(--white); }
@@ -471,6 +626,12 @@
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .about-img { max-width: 280px; margin: 0 auto; }
       .areas-grid { grid-template-columns: 1fr; gap: 40px; }
+      .testi-top { grid-template-columns: 1fr; gap: 28px; }
+      .testi-summary-card { width: 100%; }
+      .testi-grid { grid-template-columns: 1fr; gap: 18px; }
+      .testi-actions { flex-direction: column; align-items: stretch; }
+      .testi-btn { width: 100%; }
+      .testi-emotional { font-size: .9rem; padding: 0 4px; }
       .cta-band { padding: 60px 24px; }
       footer { padding: 40px 24px 90px; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -641,26 +802,72 @@
 <!-- ─── TESTIMONIALS ──────────────────────────────────── -->
 <section class="testi-sec" id="reviews">
   <div class="si">
-    <p class="label">What People Say</p>
-    <h2>Don't just take my word for it.</h2>
-    <p class="sub-text">Real clients, real dogs, real reviews.</p>
+    <div class="testi-top">
+      <div class="testi-header">
+        <p class="label">What People Say</p>
+        <h2>Trusted by local pet families</h2>
+        <p class="testi-subrating">{{ google_rating.score }} stars on Google from {{ google_rating.count }} reviews.</p>
+        <p class="testi-support">Real feedback from families who trust Chris with their dogs, cats, drop-ins, walks, and overnight care.</p>
+      </div>
+      <div class="testi-summary-card">
+        <div class="testi-score">{{ google_rating.score }}</div>
+        <div class="testi-summary-stars" aria-label="{{ google_rating.stars }} out of 5 stars">
+          {% for i in range(google_rating.stars) %}★{% endfor %}
+        </div>
+        <div class="testi-summary-count">{{ google_rating.count }} Google reviews</div>
+        <div class="testi-summary-note">Licensed LLC · Insured · Local South Denver Metro care</div>
+      </div>
+    </div>
+
     <div class="testi-grid">
-      <!-- ✏️  Replace with your actual Google reviews -->
-      <div class="testi-card">
-        <div class="stars">★★★★★</div>
-        <p class="testi-text">"Paste your first Google review here — copy the exact words from a happy client."</p>
-        <div class="testi-who">Client Name <span>· Lone Tree, CO</span></div>
-      </div>
-      <div class="testi-card">
-        <div class="stars">★★★★★</div>
-        <p class="testi-text">"Second review here. Something specific about communication, reliability, or how your dog reacted."</p>
-        <div class="testi-who">Client Name <span>· Parker, CO</span></div>
-      </div>
-      <div class="testi-card">
-        <div class="stars">★★★★★</div>
-        <p class="testi-text">"Third review. Pick your best three — these matter more than almost anything else on this page."</p>
-        <div class="testi-who">Client Name <span>· Highlands Ranch, CO</span></div>
-      </div>
+      {% for review in testimonials %}
+      {# Only use client pet photos with permission. Set review.photo in app.py when approved. #}
+      <article class="testi-card">
+        <div class="testi-card-top">
+          <div class="stars" aria-label="{{ review.rating }} out of 5 stars">
+            {% for i in range(review.rating) %}★{% endfor %}
+          </div>
+          {% if review.photo %}
+          <img class="testi-photo"
+               src="{{ url_for('static', filename=review.photo) }}"
+               alt="Pet cared for by Pookie's Pet Care">
+          {% endif %}
+        </div>
+        {% if review.service %}
+        <span class="testi-service">{{ review.service }}</span>
+        {% endif %}
+        <p class="testi-text">"{{ review.quote }}"</p>
+        <div class="testi-who">
+          {{ review.name }}
+          {% if review.location %}
+          <span>· {{ review.location }}</span>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <p class="testi-emotional">From high-energy pups to cats, pitties, goldendoodles, and senior pets, Chris treats every visit like it matters.</p>
+
+    <div class="testi-actions">
+      {% if google_reviews_url %}
+      <a href="{{ google_reviews_url }}"
+         class="testi-btn testi-btn-primary"
+         target="_blank"
+         rel="noopener noreferrer">Read more Google reviews</a>
+      {% else %}
+      {# TODO: Set GOOGLE_REVIEWS_URL in app.py to enable this button link #}
+      <span class="testi-btn testi-btn-primary">Read more Google reviews</span>
+      {% endif %}
+      {% if google_write_review_url %}
+      <a href="{{ google_write_review_url }}"
+         class="testi-btn testi-btn-ghost"
+         target="_blank"
+         rel="noopener noreferrer">Leave a review</a>
+      {% else %}
+      {# TODO: Set GOOGLE_WRITE_REVIEW_URL (or GOOGLE_REVIEWS_URL) in app.py #}
+      <span class="testi-btn testi-btn-ghost">Leave a review</span>
+      {% endif %}
     </div>
   </div>
 </section>
