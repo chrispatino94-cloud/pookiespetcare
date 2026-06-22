@@ -331,20 +331,81 @@
     /* ── ABOUT ─────────────────────────────────── */
     .about-sec { background: var(--cream); }
     .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: center; }
-    .about-img {
-      aspect-ratio: 3/4;
-      background: linear-gradient(155deg, var(--g-mid), var(--g-dark));
-      border-radius: 24px; position: relative;
-      display: flex; align-items: center; justify-content: center;
+    .owner-profile-card {
+      background: var(--g-dark);
+      border-radius: 24px;
+      padding: 36px 28px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(25, 47, 25, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      max-width: 340px;
     }
-    .about-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; }
-    .about-tag {
-      position: absolute; bottom: 18px; left: 18px; right: 18px;
-      background: rgba(255,255,255,.95); border-radius: 12px;
-      padding: 12px 16px;
+    .owner-profile-card::after {
+      content: '';
+      position: absolute; top: -15%; right: -20%; width: 80%; height: 70%;
+      background: radial-gradient(ellipse at 60% 40%, rgba(74,124,63,.25) 0%, transparent 65%);
+      pointer-events: none;
     }
-    .about-tag-name { font-size: .88rem; font-weight: 600; color: var(--text); }
-    .about-tag-sub { font-size: .74rem; color: var(--text-lt); margin-top: 2px; }
+    .owner-profile-inner { position: relative; z-index: 1; }
+    .owner-logo-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cream);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 18px;
+      padding: 12px 14px;
+      margin-bottom: 22px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+    .owner-logo-badge img {
+      width: 72px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .owner-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -.02em;
+      margin-bottom: 6px;
+    }
+    .owner-role {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--amber-lt);
+      margin-bottom: 10px;
+    }
+    .owner-services {
+      font-size: .8rem;
+      color: rgba(255, 255, 255, 0.62);
+      font-weight: 300;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .owner-trust-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .owner-trust-chip {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--amber-lt);
+      background: rgba(232, 150, 58, 0.12);
+      border: 1px solid rgba(232, 150, 58, 0.28);
+      padding: 7px 12px;
+      border-radius: 50px;
+    }
     .about-body { font-size: .98rem; color: var(--text-mid); line-height: 1.78; font-weight: 300; margin-top: 20px; }
     .about-body p + p { margin-top: 16px; }
     .about-stats { display: flex; gap: 32px; margin-top: 36px; flex-wrap: wrap; }
@@ -714,7 +775,8 @@
         font-size: 1rem;
       }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .about-img { max-width: 280px; margin: 0 auto; }
+      .owner-profile-card { max-width: 100%; margin: 0 auto; padding: 32px 24px 28px; }
+      .owner-logo-badge img { width: 64px; }
       .areas-grid { grid-template-columns: 1fr; gap: 40px; }
       .service-area-card { min-height: auto; padding: 32px 28px; }
       .testi-top { grid-template-columns: 1fr; gap: 28px; }
@@ -856,13 +918,20 @@
 <section class="about-sec" id="about">
   <div class="si">
     <div class="about-grid">
-      <div class="about-img">
-        <!-- ✏️  Swap for your headshot or a photo with a dog -->
-        <!-- <img src="chris-headshot.jpg" alt="Chris Patino, owner of Pookie's Pet Care" /> -->
-        <img src="{{ url_for('static', filename='pookies-logo.png') }}" alt="Pookie's Pet Care" style="width:75%; height:auto; object-fit:contain;" />
-        <div class="about-tag">
-          <div class="about-tag-name">Chris Patino</div>
-          <div class="about-tag-sub">Owner · South Denver Metro, CO</div>
+      <div class="owner-profile-card">
+        {# TODO: Replace logo badge with a real Chris + pet photo for maximum trust. #}
+        <div class="owner-profile-inner">
+          <div class="owner-logo-badge">
+            <img src="{{ url_for('static', filename='pookies-logo.png') }}" alt="Pookie's Pet Care" />
+          </div>
+          <div class="owner-name">Chris Patino</div>
+          <div class="owner-role">Owner · Pookie's Pet Care</div>
+          <p class="owner-services">Dog walking · Drop-ins · Overnight care</p>
+          <div class="owner-trust-chips">
+            <span class="owner-trust-chip">Licensed LLC</span>
+            <span class="owner-trust-chip">Insured</span>
+            <span class="owner-trust-chip">5.0 Google Rating</span>
+          </div>
         </div>
       </div>
       <div>
