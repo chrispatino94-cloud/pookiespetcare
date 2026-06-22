@@ -298,7 +298,32 @@
     }
     .svc-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,.08); border-color: var(--cream-dk); }
     .svc-card.feat { background: var(--g-dark); }
-    .svc-icon { font-size: 1.9rem; margin-bottom: 18px; display: block; }
+    .svc-icon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      background: rgba(196, 122, 42, 0.1);
+      border: 1px solid rgba(196, 122, 42, 0.22);
+      flex-shrink: 0;
+    }
+    .svc-icon-badge svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--amber);
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .svc-card.feat .svc-icon-badge {
+      background: rgba(246, 241, 230, 0.1);
+      border-color: rgba(246, 241, 230, 0.22);
+    }
+    .svc-card.feat .svc-icon-badge svg { stroke: var(--amber-lt); }
     .svc-name {
       font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 600;
       margin-bottom: 8px; color: var(--text); letter-spacing: -.01em;
@@ -863,7 +888,16 @@
     </div>
     <div class="svc-grid">
       <div class="svc-card feat">
-        <span class="svc-icon">🦮</span>
+        <span class="svc-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="12" cy="15.5" rx="3.2" ry="2.6"/>
+            <circle cx="8.5" cy="10.5" r="1.6"/>
+            <circle cx="15.5" cy="10.5" r="1.6"/>
+            <circle cx="10.5" cy="7.5" r="1.6"/>
+            <circle cx="13.5" cy="7.5" r="1.6"/>
+            <path d="M5 20h14"/>
+          </svg>
+        </span>
         <div class="svc-name">Dog Walking</div>
         <div class="svc-desc">30-minute local walks. Your dog gets real outdoor time and one-on-one attention — not a group rush.</div>
         <div><span class="svc-price">$30</span><span class="svc-unit">/ visit (local area)</span></div>
@@ -874,7 +908,13 @@
         </ul>
       </div>
       <div class="svc-card">
-        <span class="svc-icon">🏠</span>
+        <span class="svc-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 10.5 12 4l8 6.5"/>
+            <path d="M6 9.5V19a1 1 0 0 0 1 1h3v-5h4v5h3a1 1 0 0 0 1-1V9.5"/>
+            <path d="M12 13v3"/>
+          </svg>
+        </span>
         <div class="svc-name">Drop-In Visit</div>
         <div class="svc-desc">Check-ins for feeding, a quick walk, playtime, and a visit recap so you know your pet is good.</div>
         <div><span class="svc-price">$30–45</span><span class="svc-unit">/ visit</span></div>
@@ -885,7 +925,14 @@
         </ul>
       </div>
       <div class="svc-card">
-        <span class="svc-icon">🌙</span>
+        <span class="svc-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12h10v8H5z"/>
+            <path d="M8 12V9l4.5-3L17 9v3"/>
+            <path d="M10 16h4"/>
+            <path d="M18 7a3.5 3.5 0 1 1-2.5 6"/>
+          </svg>
+        </span>
         <div class="svc-name">Overnight / House Sitting</div>
         <div class="svc-desc">I stay at your home so your dog sleeps in their own space, in their own routine — not a stranger's kennel.</div>
         <div><span class="svc-price">$75+</span><span class="svc-unit">/ night</span></div>
@@ -896,7 +943,13 @@
         </ul>
       </div>
       <div class="svc-card">
-        <span class="svc-icon">📅</span>
+        <span class="svc-icon-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="5" width="16" height="16" rx="2"/>
+            <path d="M8 3v4M16 3v4M4 10h16"/>
+            <path d="M9 15l2 2 4-4"/>
+          </svg>
+        </span>
         <div class="svc-name">Weekend Package</div>
         <div class="svc-desc">Full weekend coverage (Fri–Sun), three walks per day, complete peace of mind for your trip.</div>
         <div><span class="svc-price">$199</span><span class="svc-unit">/ weekend flat rate</span></div>
