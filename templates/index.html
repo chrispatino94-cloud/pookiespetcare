@@ -414,6 +414,132 @@
       gap: 8px;
     }
 
+    /* ── HOW IT WORKS ──────────────────────────── */
+    .hiw-sec { background: var(--cream); padding: 80px 52px; }
+    .hiw-head { margin-bottom: 40px; max-width: 560px; }
+    .hiw-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .hiw-step {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 24px 22px;
+      border: 1px solid rgba(25, 47, 25, 0.06);
+      box-shadow: 0 4px 20px rgba(25, 47, 25, 0.05);
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .hiw-step:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(25, 47, 25, 0.08);
+    }
+    .hiw-step-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .hiw-step-num {
+      font-family: 'Fraunces', serif;
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--amber);
+      background: rgba(196, 122, 42, 0.1);
+      border: 1px solid rgba(196, 122, 42, 0.22);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .hiw-icon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(43, 82, 32, 0.08);
+      border: 1px solid rgba(43, 82, 32, 0.14);
+      color: var(--g-mid);
+      flex-shrink: 0;
+    }
+    .hiw-icon-badge .ppc-icon { width: 20px; height: 20px; }
+    .hiw-step-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -.01em;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+    .hiw-step-desc {
+      font-size: .84rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── EVERY VISIT ───────────────────────────── */
+    .every-visit-sec { background: var(--white); padding: 80px 52px; }
+    .every-visit-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .every-visit-head .sub-text { max-width: 480px; }
+    .every-visit-check-wrap { min-width: 0; }
+    .every-visit-checklist {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 20px;
+      background: var(--cream);
+      border-radius: 20px;
+      padding: 24px 26px;
+      border: 1px solid rgba(25, 47, 25, 0.06);
+    }
+    .every-visit-checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: .86rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+      font-weight: 400;
+    }
+    .every-visit-check-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      color: var(--g-mid);
+      background: rgba(43, 82, 32, 0.08);
+      border: 1px solid rgba(43, 82, 32, 0.12);
+    }
+    .every-visit-check-icon .ppc-icon { width: 17px; height: 17px; }
+    .every-visit-checklist li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+    .every-visit-note {
+      margin-top: 20px;
+      background: rgba(196, 122, 42, 0.07);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 12px 12px 0;
+      padding: 14px 18px;
+      font-size: .84rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+      font-weight: 300;
+      max-width: 100%;
+    }
+
     /* ── ABOUT ─────────────────────────────────── */
     .about-sec { background: var(--cream); }
     .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: center; }
@@ -794,6 +920,72 @@
       border-radius: 50px;
     }
 
+    /* ── FAQ ───────────────────────────────────── */
+    .faq-sec { background: var(--cream); padding: 80px 52px; }
+    .faq-head {
+      text-align: center;
+      max-width: 520px;
+      margin: 0 auto 36px;
+    }
+    .faq-head h2 { margin-bottom: 10px; }
+    .faq-head .sub-text { margin: 0 auto; text-align: center; }
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+      display: grid;
+      gap: 10px;
+    }
+    .faq-item {
+      background: var(--white);
+      border-radius: 14px;
+      border: 1px solid rgba(25, 47, 25, 0.07);
+      box-shadow: 0 2px 12px rgba(25, 47, 25, 0.04);
+      overflow: hidden;
+    }
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 22px;
+      cursor: pointer;
+      list-style: none;
+      font-family: 'Fraunces', serif;
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -.01em;
+      line-height: 1.35;
+      transition: color .2s;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::marker { display: none; content: ''; }
+    .faq-item summary::after {
+      content: '';
+      flex-shrink: 0;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid var(--g-mid);
+      border-bottom: 2px solid var(--g-mid);
+      transform: rotate(45deg);
+      margin-top: -4px;
+      transition: transform .22s ease, border-color .2s;
+    }
+    .faq-item[open] summary { color: var(--g-mid); }
+    .faq-item[open] summary::after {
+      transform: rotate(-135deg);
+      margin-top: 4px;
+      border-color: var(--amber);
+    }
+    .faq-item summary:hover { color: var(--g-mid); }
+    .faq-answer {
+      padding: 0 22px 18px;
+      font-size: .88rem;
+      color: var(--text-mid);
+      line-height: 1.68;
+      font-weight: 300;
+    }
+
     /* ── CTA BAND ──────────────────────────────── */
     .cta-band { background: var(--amber); padding: 80px 52px; text-align: center; }
     .cta-band h2 { color: var(--white); margin-bottom: 12px; }
@@ -867,6 +1059,8 @@
       .visit-grid--5,
       .visit-grid--4 { grid-template-columns: repeat(2, 1fr); max-width: 680px; }
       .visit-grid--5 .visit-photo { grid-column: auto !important; }
+      .hiw-grid { grid-template-columns: repeat(2, 1fr); }
+      .every-visit-inner { grid-template-columns: 1fr; gap: 32px; }
     }
     @media (max-width: 560px) {
       .visit-sec { padding: 56px 24px; }
@@ -931,6 +1125,9 @@
         padding: 14px 28px;
       }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hiw-sec, .every-visit-sec { padding: 64px 24px; }
+      .hiw-grid { grid-template-columns: 1fr; gap: 12px; }
+      .every-visit-checklist { grid-template-columns: 1fr; padding: 20px 18px; }
       .owner-profile-card { max-width: 100%; margin: 0 auto; padding: 32px 24px 28px; }
       .owner-photo-wrap { max-width: 100%; }
       .areas-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -942,6 +1139,9 @@
       .testi-btn { width: 100%; }
       .testi-emotional { font-size: .9rem; padding: 0 4px; }
       .cta-band { padding: 60px 24px; }
+      .faq-sec { padding: 64px 24px; }
+      .faq-item summary { font-size: .96rem; padding: 16px 18px; }
+      .faq-answer { padding: 0 18px 16px; font-size: .86rem; }
       footer { padding: 40px 24px 90px; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; text-align: center; }
@@ -1071,6 +1271,97 @@
     <div class="holiday-note">
       <strong>{{ ppc_icon('calendar-check', 'ppc-icon--note') }} Holiday rates apply</strong> on major holidays — reach out when you book to get the current rate.
       Add-ons available: medication administration +$10, plant watering +$5, mail &amp; package pickup +$5.
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ──────────────────────────────────── -->
+<section class="hiw-sec" id="how-it-works">
+  <div class="si">
+    <div class="hiw-head">
+      <p class="label">How It Works</p>
+      <h2>Simple care, <em>start to finish.</em></h2>
+      <p class="sub-text">I keep the process easy so you know exactly what to expect before, during, and after each visit.</p>
+    </div>
+    <div class="hiw-grid">
+      <div class="hiw-step">
+        <div class="hiw-step-top">
+          <span class="hiw-step-num">1</span>
+          <span class="hiw-icon-badge" aria-hidden="true">{{ ppc_icon('handshake') }}</span>
+        </div>
+        <h3 class="hiw-step-title">Free Meet &amp; Greet</h3>
+        <p class="hiw-step-desc">We meet first so your pet can get comfortable and you can show me the routine.</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-step-top">
+          <span class="hiw-step-num">2</span>
+          <span class="hiw-icon-badge" aria-hidden="true">{{ ppc_icon('clipboard-list') }}</span>
+        </div>
+        <h3 class="hiw-step-title">Custom Care Plan</h3>
+        <p class="hiw-step-desc">You tell me the feeding schedule, walk preferences, house access, behavior notes, and anything important.</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-step-top">
+          <span class="hiw-step-num">3</span>
+          <span class="hiw-icon-badge" aria-hidden="true">{{ ppc_icon('camera') }}</span>
+        </div>
+        <h3 class="hiw-step-title">Visit Updates</h3>
+        <p class="hiw-step-desc">After each visit, I send a quick recap and photo so you know how everything went.</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-step-top">
+          <span class="hiw-step-num">4</span>
+          <span class="hiw-icon-badge" aria-hidden="true">{{ ppc_icon('refresh-cw') }}</span>
+        </div>
+        <h3 class="hiw-step-title">Consistent Care</h3>
+        <p class="hiw-step-desc">Same person, same routine, less stress for your pet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EVERY VISIT ───────────────────────────────────── -->
+<section class="every-visit-sec" id="every-visit">
+  <div class="si">
+    <div class="every-visit-inner">
+      <div class="every-visit-head">
+        <p class="label">Every Visit</p>
+        <h2>What happens during a visit?</h2>
+        <p class="sub-text">Every pet is different, but the goal is always the same: safe, calm, reliable care.</p>
+      </div>
+      <div class="every-visit-check-wrap">
+      <ul class="every-visit-checklist">
+        <li>
+          <span class="every-visit-check-icon" aria-hidden="true">{{ ppc_icon('droplets') }}</span>
+          Fresh water check
+        </li>
+        <li>
+          <span class="every-visit-check-icon" aria-hidden="true">{{ ppc_icon('paw-print') }}</span>
+          Potty break, walk, or playtime
+        </li>
+        <li>
+          <span class="every-visit-check-icon" aria-hidden="true">{{ ppc_icon('utensils') }}</span>
+          Feeding if requested
+        </li>
+        <li>
+          <span class="every-visit-check-icon" aria-hidden="true">{{ ppc_icon('pill') }}</span>
+          Medication reminder or simple medication administration if arranged
+        </li>
+        <li>
+          <span class="every-visit-check-icon" aria-hidden="true">{{ ppc_icon('camera') }}</span>
+          Photo update after the visit
+        </li>
+        <li>
+          <span class="every-visit-check-icon" aria-hidden="true">{{ ppc_icon('message-square') }}</span>
+          Quick recap message
+        </li>
+        <li>
+          <span class="every-visit-check-icon" aria-hidden="true">{{ ppc_icon('lock') }}</span>
+          Lock-up and home check before I leave
+        </li>
+      </ul>
+      <p class="every-visit-note">For overnight stays, I keep your pet's normal routine as close as possible so they can stay comfortable in their own home.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1250,6 +1541,50 @@
   </div>
 </section>
 
+<!-- ─── FAQ ───────────────────────────────────────────── -->
+<section class="faq-sec" id="faq">
+  <div class="si">
+    <div class="faq-head">
+      <h2>Frequently Asked Questions</h2>
+      <p class="sub-text">A few quick answers before you reach out.</p>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Do you offer a free meet-and-greet?</summary>
+        <p class="faq-answer">Yes. I like to meet you and your pet first so we can go over the routine, personality, house access, and make sure it feels like a good fit before the first visit.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What areas do you serve?</summary>
+        <p class="faq-answer">I serve the South Denver Metro area, including Lone Tree, Parker, Castle Rock, Highlands Ranch, Aurora, Bennett, and nearby areas depending on timing and availability.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do you send updates?</summary>
+        <p class="faq-answer">Yes. I send a quick visit recap and photo update so you know how your pet did.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do you care for cats too?</summary>
+        <p class="faq-answer">Yes. I offer drop-in visits for cats, including feeding, water, litter checks, playtime, and updates.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do you do overnight care?</summary>
+        <p class="faq-answer">Yes. Overnight care is available for pets who do better staying in their own home and keeping their normal routine.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do you take last-minute bookings?</summary>
+        <p class="faq-answer">Sometimes. It depends on my schedule, location, and the type of care needed. Text me and I'll let you know if I can help.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do you work holidays and weekends?</summary>
+        <p class="faq-answer">Yes, holidays and weekends are available. Major holidays may have holiday pricing.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I book?</summary>
+        <p class="faq-answer">Text Chris to start. We'll do a free meet-and-greet first, then confirm the service, schedule, and care details.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- ─── CTA BAND ───────────────────────────────────────── -->
 <section class="cta-band">
   <div class="si">
@@ -1359,6 +1694,16 @@
       hamburger.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
     }
+  });
+
+  // FAQ accordion — one open at a time
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('toggle', () => {
+      if (!item.open) return;
+      document.querySelectorAll('.faq-item').forEach(other => {
+        if (other !== item) other.open = false;
+      });
+    });
   });
 </script>
 

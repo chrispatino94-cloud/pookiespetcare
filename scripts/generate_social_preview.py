@@ -96,7 +96,7 @@ def main():
     )
     draw.text(
         (text_x, title_y + 142),
-        "Licensed & Insured · 5.0 Google Rating · South Denver Metro",
+        "Registered LLC · 5.0 Google Rating · South Denver Metro",
         font=sans_reg,
         fill=(220, 230, 220),
     )
