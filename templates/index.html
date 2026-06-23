@@ -1,10 +1,11 @@
+{% from 'macros/icons.html' import ppc_icon %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pookie's Pet Care | Dog Walking & Pet Sitting | South Denver Metro</title>
-  <meta name="description" content="Professional dog walking and pet sitting in Lone Tree, Parker, Castle Rock, and Highlands Ranch. Licensed LLC, insured, and actually local. Text or call Chris Patino today." />
+  <meta name="description" content="Professional dog walking and pet sitting in Lone Tree, Parker, Castle Rock, and Highlands Ranch. Locally owned registered LLC, trusted by local families. Text or call Chris Patino today." />
   <meta name="keywords" content="dog walking Lone Tree, pet sitting Parker CO, dog walker Castle Rock, Highlands Ranch pet care, Bennett dog walking, South Denver Metro pet sitter" />
   <link rel="icon" href="{{ url_for('static', filename='pookies-logo.png') }}" />
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='pookies-logo.png') }}" />
@@ -14,7 +15,7 @@
   <meta property="og:site_name" content="Pookie's Pet Care" />
   <meta property="og:url" content="https://pookiespetcare.com/" />
   <meta property="og:title" content="Pookie's Pet Care | Dog Walking &amp; Pet Sitting | South Denver Metro" />
-  <meta property="og:description" content="Licensed and insured dog walking, drop-ins, overnight care, and weekend pet sitting from Chris Patino across Lone Tree, Parker, Castle Rock, Aurora, Bennett, and the South Denver Metro." />
+  <meta property="og:description" content="Locally owned dog walking, drop-ins, overnight care, and weekend pet sitting from Chris Patino across Lone Tree, Parker, Castle Rock, Aurora, Bennett, and the South Denver Metro." />
   <meta property="og:image" content="https://pookiespetcare.com/static/social-preview.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -22,7 +23,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Pookie's Pet Care | Dog Walking &amp; Pet Sitting | South Denver Metro" />
-  <meta name="twitter:description" content="Licensed and insured dog walking, drop-ins, overnight care, and weekend pet sitting from Chris Patino across Lone Tree, Parker, Castle Rock, Aurora, Bennett, and the South Denver Metro." />
+  <meta name="twitter:description" content="Locally owned dog walking, drop-ins, overnight care, and weekend pet sitting from Chris Patino across Lone Tree, Parker, Castle Rock, Aurora, Bennett, and the South Denver Metro." />
   <meta name="twitter:image" content="https://pookiespetcare.com/static/social-preview.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -107,6 +108,7 @@
     }
     .nav-links a:hover { color: var(--amber-lt); }
     .nav-cta {
+      display: inline-flex !important; align-items: center; gap: 8px;
       background: var(--amber) !important; color: var(--white) !important;
       padding: 10px 22px; border-radius: 50px;
       transition: background .2s, transform .2s !important;
@@ -228,29 +230,60 @@
       font-weight: 300;
       text-shadow: 0 2px 16px rgba(0,0,0,.3);
     }
+    .cinematic-cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .cinematic-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 14px 18px;
+    }
     .cinematic-cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: .02em;
+      transition: transform .2s, box-shadow .2s, background .2s, border-color .2s, color .2s;
+      min-height: 52px;
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+    }
+    .cinematic-cta-primary {
       background: var(--amber);
       color: var(--white);
-      text-decoration: none;
-      padding: 18px 40px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1.05rem;
-      letter-spacing: .02em;
       box-shadow: 0 6px 32px rgba(196,122,42,.5), 0 2px 8px rgba(0,0,0,.2);
-      transition: transform .2s, box-shadow .2s, background .2s;
     }
-    .cinematic-cta:hover {
+    .cinematic-cta-primary:hover {
       background: var(--amber-lt);
       transform: translateY(-3px);
       box-shadow: 0 10px 40px rgba(196,122,42,.55), 0 4px 12px rgba(0,0,0,.22);
     }
+    .cinematic-cta-secondary {
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      border: 2px solid rgba(255,255,255,.42);
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 14px 30px;
+      box-shadow: none;
+    }
+    .cinematic-cta-secondary:hover {
+      background: rgba(255,255,255,.1);
+      border-color: rgba(255,255,255,.72);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
     .cinematic-note {
-      margin-top: 20px;
+      margin-top: 4px;
       font-size: .82rem;
       font-weight: 400;
       color: rgba(255,255,255,.58);
@@ -263,8 +296,27 @@
       max-width: 1200px; margin: 0 auto;
       display: flex; justify-content: center; gap: 44px; flex-wrap: wrap;
     }
-    .ti { display: flex; align-items: center; gap: 10px; }
-    .ti-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .ti { display: flex; align-items: center; gap: 12px; }
+    .ti-icon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      color: var(--amber);
+      background: rgba(196, 122, 42, 0.1);
+      border: 1px solid rgba(196, 122, 42, 0.22);
+    }
+    .ppc-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      display: block;
+    }
+    .ppc-icon--btn { width: 20px; height: 20px; }
+    .ppc-icon--note { width: 18px; height: 18px; }
     .ti-text { display: flex; flex-direction: column; gap: 1px; }
     .ti-label { font-size: .82rem; font-weight: 600; color: var(--text-mid); }
     .ti-sub { font-size: .7rem; font-weight: 400; color: var(--text-lt); }
@@ -290,6 +342,12 @@
     /* ── SERVICES ──────────────────────────────── */
     .svc-sec { background: var(--white); }
     .svc-head { margin-bottom: 52px; }
+    .svc-head h2 {
+      font-weight: 500;
+      letter-spacing: -0.012em;
+      font-variant-ligatures: none;
+      font-feature-settings: "liga" 0, "clig" 0, "dlig" 0, "hlig" 0;
+    }
     .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); gap: 20px; }
     .svc-card {
       background: var(--cream); border-radius: 20px; padding: 30px 28px;
@@ -309,21 +367,14 @@
       background: rgba(196, 122, 42, 0.1);
       border: 1px solid rgba(196, 122, 42, 0.22);
       flex-shrink: 0;
+      color: var(--amber);
     }
-    .svc-icon-badge svg {
-      width: 24px;
-      height: 24px;
-      stroke: var(--amber);
-      fill: none;
-      stroke-width: 1.75;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
+    .svc-icon-badge .ppc-icon { width: 24px; height: 24px; }
     .svc-card.feat .svc-icon-badge {
       background: rgba(246, 241, 230, 0.1);
       border-color: rgba(246, 241, 230, 0.22);
+      color: var(--amber-lt);
     }
-    .svc-card.feat .svc-icon-badge svg { stroke: var(--amber-lt); }
     .svc-name {
       font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 600;
       margin-bottom: 8px; color: var(--text); letter-spacing: -.01em;
@@ -351,7 +402,17 @@
       border-left: 3px solid var(--amber); border-radius: 0 12px 12px 0;
       padding: 16px 20px; font-size: .88rem; color: var(--text-mid); line-height: 1.6;
     }
-    .holiday-note strong { color: var(--amber); }
+    .holiday-note strong {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--amber);
+    }
+    .footer-links a.phone-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
 
     /* ── ABOUT ─────────────────────────────────── */
     .about-sec { background: var(--cream); }
@@ -374,21 +435,23 @@
       pointer-events: none;
     }
     .owner-profile-inner { position: relative; z-index: 1; }
-    .owner-logo-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--cream);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 18px;
-      padding: 12px 14px;
-      margin-bottom: 22px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    .owner-photo-wrap {
+      width: 100%;
+      max-width: 248px;
+      margin: 0 auto 24px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 3px solid rgba(232, 150, 58, 0.38);
+      box-shadow:
+        0 10px 32px rgba(0, 0, 0, 0.28),
+        0 0 0 1px rgba(255, 255, 255, 0.12);
+      background: var(--g-mid);
     }
-    .owner-logo-badge img {
-      width: 72px;
-      height: auto;
-      object-fit: contain;
+    .owner-photo-wrap img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      object-position: center 42%;
       display: block;
     }
     .owner-name {
@@ -436,6 +499,55 @@
     .about-stats { display: flex; gap: 32px; margin-top: 36px; flex-wrap: wrap; }
     .stat-n { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 600; color: var(--text); line-height: 1; }
     .stat-l { font-size: .76rem; color: var(--text-lt); margin-top: 4px; }
+
+    /* ── VISIT GALLERY ─────────────────────────── */
+    .visit-sec { background: var(--white); padding: 72px 52px; }
+    .visit-head {
+      text-align: center;
+      max-width: 520px;
+      margin: 0 auto 36px;
+    }
+    .visit-head h2 { margin-bottom: 10px; }
+    .visit-head .sub-text { margin: 0 auto; text-align: center; max-width: 440px; }
+    .visit-grid {
+      display: grid;
+      gap: 14px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .visit-grid--6 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .visit-grid--5 {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .visit-grid--5 .visit-photo:nth-child(-n+3) { grid-column: span 2; }
+    .visit-grid--5 .visit-photo:nth-child(4) { grid-column: 2 / span 2; }
+    .visit-grid--5 .visit-photo:nth-child(5) { grid-column: 4 / span 2; }
+    .visit-grid--4 {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 720px;
+    }
+    .visit-photo {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      box-shadow: 0 4px 18px rgba(25, 47, 25, 0.07);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .visit-photo:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(25, 47, 25, 0.11);
+    }
+    .visit-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    .visit-photo--top img { object-position: center 18%; }
+    .visit-photo--bottom img { object-position: center 82%; }
 
     /* ── TESTIMONIALS ──────────────────────────── */
     .testi-sec { background: var(--g-dark); position: relative; overflow: hidden; }
@@ -750,6 +862,18 @@
     .cinematic-hero-content > *:nth-child(5) { animation-delay: .8s; }
 
     /* ── RESPONSIVE ────────────────────────────── */
+    @media (max-width: 1024px) {
+      .visit-grid--6,
+      .visit-grid--5,
+      .visit-grid--4 { grid-template-columns: repeat(2, 1fr); max-width: 680px; }
+      .visit-grid--5 .visit-photo { grid-column: auto !important; }
+    }
+    @media (max-width: 560px) {
+      .visit-sec { padding: 56px 24px; }
+      .visit-grid--6,
+      .visit-grid--5,
+      .visit-grid--4 { grid-template-columns: 1fr; max-width: 380px; gap: 12px; }
+    }
     @media (max-width: 820px) {
       nav { padding: 14px 20px; }
       .logo-badge-nav { padding: 7px 9px; border-radius: 17px; }
@@ -793,15 +917,22 @@
       }
       .cinematic-location span { width: 32px; }
       .cinematic-subtitle { margin-bottom: 28px; }
+      .cinematic-cta-row {
+        flex-direction: column;
+        width: 100%;
+        max-width: 340px;
+      }
       .cinematic-cta {
         width: 100%;
-        max-width: 320px;
         padding: 16px 28px;
         font-size: 1rem;
       }
+      .cinematic-cta-secondary {
+        padding: 14px 28px;
+      }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .owner-profile-card { max-width: 100%; margin: 0 auto; padding: 32px 24px 28px; }
-      .owner-logo-badge img { width: 64px; }
+      .owner-photo-wrap { max-width: 100%; }
       .areas-grid { grid-template-columns: 1fr; gap: 40px; }
       .service-area-card { min-height: auto; padding: 32px 28px; }
       .testi-top { grid-template-columns: 1fr; gap: 28px; }
@@ -832,7 +963,7 @@
     <li><a href="#reviews">Reviews</a></li>
     <li><a href="#areas">Areas</a></li>
     <li><a href="/blog">Blog</a></li>
-    <li><a href="#" class="nav-cta phone-link">📱 Call Chris</a></li>
+    <li><a href="#" class="nav-cta phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Call Chris</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -859,22 +990,27 @@
       <span class="cinematic-title-bold">Pet Care</span>
     </h1>
     <p class="cinematic-subtitle">
-      Dog walking, drop-ins, and overnight care from a real local neighbor — licensed, insured, and trusted by families across Lone Tree, Parker, Castle Rock, Aurora, Bennett, and beyond.
+      Dog walking, drop-ins, and overnight care from a real local neighbor — locally owned, registered LLC, and trusted by families across Lone Tree, Parker, Castle Rock, Aurora, Bennett, and beyond.
     </p>
-    <a href="#" class="cinematic-cta phone-link">📱 Text or Call Chris</a>
-    <p class="cinematic-note">Free meet-and-greet · Holidays &amp; weekends available</p>
+    <div class="cinematic-cta-group">
+      <div class="cinematic-cta-row">
+        <a href="#" class="cinematic-cta cinematic-cta-primary meet-greet-link">{{ ppc_icon('paw-print', 'ppc-icon--btn') }} Schedule a Free Meet &amp; Greet</a>
+        <a href="#" class="cinematic-cta cinematic-cta-secondary sms-link">Text Chris</a>
+      </div>
+      <p class="cinematic-note">Free intro visit · No commitment · Meet Chris before the first visit</p>
+    </div>
   </div>
 </section>
 
 <!-- ─── TRUST BAR ──────────────────────────────────────── -->
 <div class="trust-bar">
   <div class="trust-inner">
-    <div class="ti"><span class="ti-icon">✅</span><div class="ti-text"><span class="ti-label">Licensed LLC</span><span class="ti-sub">Peace of mind guaranteed</span></div></div>
-    <div class="ti"><span class="ti-icon">🛡️</span><div class="ti-text"><span class="ti-label">Insured</span><span class="ti-sub">Covered on every visit</span></div></div>
-    <div class="ti"><span class="ti-icon">📍</span><div class="ti-text"><span class="ti-label">South Denver Metro</span><span class="ti-sub">Lone Tree, Parker, Castle Rock &amp; more</span></div></div>
-    <div class="ti"><span class="ti-icon">⭐</span><div class="ti-text"><span class="ti-label">5-Star Google Rating</span><span class="ti-sub">Loved by local families</span></div></div>
-    <div class="ti"><span class="ti-icon">🐾</span><div class="ti-text"><span class="ti-label">All Breeds &amp; Sizes</span><span class="ti-sub">Big, small, young, or senior</span></div></div>
-    <div class="ti"><span class="ti-icon">🎄</span><div class="ti-text"><span class="ti-label">Holidays &amp; Weekends</span><span class="ti-sub">Available when you need it most</span></div></div>
+    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('badge-check') }}</span><div class="ti-text"><span class="ti-label">Registered LLC</span><span class="ti-sub">Locally owned pet care business</span></div></div>
+    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('star') }}</span><div class="ti-text"><span class="ti-label">5-Star Google Rating</span><span class="ti-sub">{{ google_rating.count }} reviews from local families</span></div></div>
+    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('camera') }}</span><div class="ti-text"><span class="ti-label">Photo Updates</span><span class="ti-sub">Visit recap after every visit</span></div></div>
+    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('handshake') }}</span><div class="ti-text"><span class="ti-label">Free Meet &amp; Greet</span><span class="ti-sub">Meet Chris before the first visit</span></div></div>
+    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('map-pin') }}</span><div class="ti-text"><span class="ti-label">South Denver Metro</span><span class="ti-sub">Lone Tree, Parker, Castle Rock &amp; more</span></div></div>
+    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('calendar-check') }}</span><div class="ti-text"><span class="ti-label">Holidays &amp; Weekends</span><span class="ti-sub">Available when you need it most</span></div></div>
   </div>
 </div>
 
@@ -888,16 +1024,7 @@
     </div>
     <div class="svc-grid">
       <div class="svc-card feat">
-        <span class="svc-icon-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="12" cy="15.5" rx="3.2" ry="2.6"/>
-            <circle cx="8.5" cy="10.5" r="1.6"/>
-            <circle cx="15.5" cy="10.5" r="1.6"/>
-            <circle cx="10.5" cy="7.5" r="1.6"/>
-            <circle cx="13.5" cy="7.5" r="1.6"/>
-            <path d="M5 20h14"/>
-          </svg>
-        </span>
+        <span class="svc-icon-badge" aria-hidden="true">{{ ppc_icon('paw-print') }}</span>
         <div class="svc-name">Dog Walking</div>
         <div class="svc-desc">30-minute local walks. Your dog gets real outdoor time and one-on-one attention — not a group rush.</div>
         <div><span class="svc-price">$30</span><span class="svc-unit">/ visit (local area)</span></div>
@@ -908,13 +1035,7 @@
         </ul>
       </div>
       <div class="svc-card">
-        <span class="svc-icon-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 10.5 12 4l8 6.5"/>
-            <path d="M6 9.5V19a1 1 0 0 0 1 1h3v-5h4v5h3a1 1 0 0 0 1-1V9.5"/>
-            <path d="M12 13v3"/>
-          </svg>
-        </span>
+        <span class="svc-icon-badge" aria-hidden="true">{{ ppc_icon('home') }}</span>
         <div class="svc-name">Drop-In Visit</div>
         <div class="svc-desc">Check-ins for feeding, a quick walk, playtime, and a visit recap so you know your pet is good.</div>
         <div><span class="svc-price">$30–45</span><span class="svc-unit">/ visit</span></div>
@@ -925,14 +1046,7 @@
         </ul>
       </div>
       <div class="svc-card">
-        <span class="svc-icon-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 12h10v8H5z"/>
-            <path d="M8 12V9l4.5-3L17 9v3"/>
-            <path d="M10 16h4"/>
-            <path d="M18 7a3.5 3.5 0 1 1-2.5 6"/>
-          </svg>
-        </span>
+        <span class="svc-icon-badge" aria-hidden="true">{{ ppc_icon('moon') }}</span>
         <div class="svc-name">Overnight / House Sitting</div>
         <div class="svc-desc">I stay at your home so your dog sleeps in their own space, in their own routine — not a stranger's kennel.</div>
         <div><span class="svc-price">$75+</span><span class="svc-unit">/ night</span></div>
@@ -943,13 +1057,7 @@
         </ul>
       </div>
       <div class="svc-card">
-        <span class="svc-icon-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="5" width="16" height="16" rx="2"/>
-            <path d="M8 3v4M16 3v4M4 10h16"/>
-            <path d="M9 15l2 2 4-4"/>
-          </svg>
-        </span>
+        <span class="svc-icon-badge" aria-hidden="true">{{ ppc_icon('calendar-days') }}</span>
         <div class="svc-name">Weekend Package</div>
         <div class="svc-desc">Full weekend coverage (Fri–Sun), three walks per day, complete peace of mind for your trip.</div>
         <div><span class="svc-price">$199</span><span class="svc-unit">/ weekend flat rate</span></div>
@@ -961,7 +1069,7 @@
       </div>
     </div>
     <div class="holiday-note">
-      <strong>🎄 Holiday rates apply</strong> on major holidays — reach out when you book to get the current rate.
+      <strong>{{ ppc_icon('calendar-check', 'ppc-icon--note') }} Holiday rates apply</strong> on major holidays — reach out when you book to get the current rate.
       Add-ons available: medication administration +$10, plant watering +$5, mail &amp; package pickup +$5.
     </div>
   </div>
@@ -972,17 +1080,19 @@
   <div class="si">
     <div class="about-grid">
       <div class="owner-profile-card">
-        {# TODO: Replace logo badge with a real Chris + pet photo for maximum trust. #}
         <div class="owner-profile-inner">
-          <div class="owner-logo-badge">
-            <img src="{{ url_for('static', filename='pookies-logo.png') }}" alt="Pookie's Pet Care" />
+          <div class="owner-photo-wrap">
+            <img src="{{ url_for('static', filename='gallery/chris-husky-selfie.jpeg') }}"
+                 alt="Chris Patino with a husky during a pet care visit"
+                 loading="lazy"
+                 decoding="async">
           </div>
           <div class="owner-name">Chris Patino</div>
           <div class="owner-role">Owner · Pookie's Pet Care</div>
           <p class="owner-services">Dog walking · Drop-ins · Overnight care</p>
           <div class="owner-trust-chips">
-            <span class="owner-trust-chip">Licensed LLC</span>
-            <span class="owner-trust-chip">Insured</span>
+            <span class="owner-trust-chip">Registered LLC</span>
+            <span class="owner-trust-chip">Locally Owned</span>
             <span class="owner-trust-chip">5.0 Google Rating</span>
           </div>
         </div>
@@ -992,13 +1102,13 @@
         <h2>The actual person<br>walking <em>your dog.</em></h2>
         <div class="about-body">
           <p>I'm Chris — I run Pookie's Pet Care LLC out of the South Denver Metro area. I started this as a real business, not a side gig, because I genuinely love working with animals and I think dog owners deserve someone they can actually rely on.</p>
-          <p>I'm a registered LLC, I carry insurance, and I keep my client roster manageable so your dog gets real attention. The dogs and cats I care for keep me honest about what good pet care actually looks like: calm, consistent, patient, and reliable.</p>
+          <p>I'm a registered LLC, and I keep my client roster manageable so your dog gets real attention. The dogs and cats I care for keep me honest about what good pet care actually looks like: calm, consistent, patient, and reliable.</p>
           <p>If you're looking for someone consistent who'll actually care about your animal, shoot me a text. We'll do a free meet-and-greet first — no commitment, just an introduction.</p>
         </div>
         <div class="about-stats">
           <div>
             <div class="stat-n">LLC</div>
-            <div class="stat-l">Registered &amp; Insured</div>
+            <div class="stat-l">Registered LLC</div>
           </div>
           <div>
             <div class="stat-n">5 ★</div>
@@ -1014,15 +1124,34 @@
   </div>
 </section>
 
+<!-- ─── VISIT GALLERY ─────────────────────────────────── -->
+<section class="visit-sec" id="visits" aria-label="Pet visit photos">
+  <div class="si">
+    <div class="visit-head">
+      <h2>Real Pets. Real Visits.</h2>
+      <p class="sub-text">A few happy faces from real walks, drop-ins, and overnight stays.</p>
+    </div>
+    <div class="visit-grid visit-grid--{{ visit_photos|length }}">
+      {% for photo in visit_photos %}
+      <figure class="visit-photo{% if photo.focus %} visit-photo--{{ photo.focus }}{% endif %}">
+        <img src="{{ url_for('static', filename=photo.file) }}"
+             alt="{{ photo.alt }}"
+             loading="lazy"
+             decoding="async">
+      </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
 <!-- ─── TESTIMONIALS ──────────────────────────────────── -->
 <section class="testi-sec" id="reviews">
   <div class="si">
     <div class="testi-top">
       <div class="testi-header">
         <p class="label">What People Say</p>
-        <h2>Trusted by local pet families</h2>
-        <p class="testi-subrating">{{ google_rating.score }} stars on Google from {{ google_rating.count }} reviews.</p>
-        <p class="testi-support">Real feedback from families who trust Chris with their dogs, cats, drop-ins, walks, and overnight care.</p>
+        <h2>Real Google Reviews from Local Pet Families</h2>
+        <p class="testi-subrating">{{ google_rating.score }} stars from {{ google_rating.count }} Google reviews. Real feedback from families who trust Chris with walks, drop-ins, cats, overnight care, and high-energy dogs.</p>
       </div>
       <div class="testi-summary-card">
         <div class="testi-score">{{ google_rating.score }}</div>
@@ -1030,7 +1159,7 @@
           {% for i in range(google_rating.stars) %}★{% endfor %}
         </div>
         <div class="testi-summary-count">{{ google_rating.count }} Google reviews</div>
-        <div class="testi-summary-note">Licensed LLC · Insured · Local South Denver Metro care</div>
+        <div class="testi-summary-note">Registered LLC · Local South Denver Metro care</div>
       </div>
     </div>
 
@@ -1126,7 +1255,7 @@
   <div class="si">
     <h2>Ready to meet your dog's<br><em>new favorite person?</em></h2>
     <p class="sub-text">Text or call Chris directly. Free meet-and-greet, no commitment.</p>
-    <a href="#" class="btn-white phone-link">📱 Text or Call Chris</a>
+    <a href="#" class="btn-white phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Text or Call Chris</a>
   </div>
 </section>
 
@@ -1140,7 +1269,7 @@
       <p class="footer-text">
         Dog walking, drop-ins, overnight care &amp; weekend pet sitting<br>
         in the South Denver Metro, CO.<br><br>
-        Owner: Chris Patino · Licensed LLC &amp; Insured
+        Owner: Chris Patino · Registered LLC · Local South Denver Metro care
       </p>
     </div>
     <div>
@@ -1156,7 +1285,7 @@
     <div>
       <div class="footer-col-title">Contact</div>
       <ul class="footer-links">
-        <li><a href="#" class="phone-link">📱 Call or Text — <span class="phone-display">(585) 623-3030</span></a></li>
+        <li><a href="#" class="phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Call or Text — <span class="phone-display">(585) 623-3030</span></a></li>
         <li><a href="mailto:chrispatino94@gmail.com">✉️ chrispatino94@gmail.com</a></li>
         <li><a href="https://pookiespetcare.com">pookiespetcare.com</a></li>
         <li>Holidays &amp; Weekends Available</li>
@@ -1171,7 +1300,7 @@
 </footer>
 
 <!-- ─── FLOATING CALL BUTTON (mobile only) ───────────── -->
-<a href="#" class="fab-call phone-link">📱 Call Chris</a>
+<a href="#" class="fab-call phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Call Chris</a>
 
 <script>
   // ══════════════════════════════════════════════════
@@ -1183,6 +1312,13 @@
   // Update every phone link in one place
   document.querySelectorAll('.phone-link').forEach(el => {
     el.href = `tel:${PHONE_TEL}`;
+  });
+  document.querySelectorAll('.sms-link').forEach(el => {
+    el.href = `sms:${PHONE_TEL}`;
+  });
+  document.querySelectorAll('.meet-greet-link').forEach(el => {
+    const body = encodeURIComponent("Hi Chris, I'd like to schedule a free meet & greet.");
+    el.href = `sms:${PHONE_TEL}?body=${body}`;
   });
   document.querySelectorAll('.phone-display').forEach(el => {
     el.textContent = PHONE_DISPLAY;

@@ -32,6 +32,35 @@ GOOGLE_RATING = {
     "stars": 5,
 }
 
+# Homepage visit gallery — real pet photos in static/gallery/
+# Chris + husky selfie is on the About card only; gallery uses pet visit photos.
+VISIT_PHOTOS = [
+    {
+        "file": "gallery/white-dog-yard-play.jpeg",
+        "alt": "White dog playing in the yard during a visit",
+    },
+    {
+        "file": "gallery/happy-walk-small-dog.jpeg",
+        "alt": "Small dog on a happy neighborhood walk",
+    },
+    {
+        "file": "gallery/pugs-car-ride.jpeg",
+        "alt": "Two pugs ready for a car ride after pet care",
+    },
+    {
+        "file": "gallery/gentle-dog-cuddle.jpeg",
+        "alt": "Gentle cuddle with a happy dog at home",
+    },
+    {
+        "file": "gallery/black-terrier-yard-play.jpeg",
+        "alt": "Black terrier playing in the yard during a visit",
+    },
+    {
+        "file": "gallery/chris-husky-selfie.jpeg",
+        "alt": "Chris with a husky during a pet care visit",
+    },
+]
+
 # Real Google reviews for Pookie's Pet Care.
 # Only use client pet photos with permission — set optional "photo" to a static path when approved.
 TESTIMONIALS = [
@@ -211,6 +240,7 @@ def index():
         google_reviews_url=GOOGLE_REVIEWS_URL,
         google_write_review_url=get_google_write_review_url(),
         google_rating=GOOGLE_RATING,
+        visit_photos=VISIT_PHOTOS,
     )
 
 @app.route('/blog')
