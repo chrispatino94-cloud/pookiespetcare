@@ -1,7 +1,7 @@
 import sqlite3
 import os
 import datetime
-from flask import Flask, render_template, abort, request
+from flask import Flask, render_template, abort, request, jsonify
 
 from blog_generator import generate_post
 
@@ -211,6 +211,20 @@ def init_db():
     except Exception:
         pass  # column already exists, nothing to do
 
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS contact_submissions (
+            id         INTEGER PRIMARY KEY AUTOINCREMENT,
+            name       TEXT NOT NULL,
+            phone      TEXT NOT NULL,
+            email      TEXT,
+            pet_name   TEXT,
+            service    TEXT,
+            message    TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    conn.commit()
+
     conn.close()
 
 # Run once at startup — creates the table if it doesn't exist yet
@@ -275,6 +289,53 @@ def run_blog_generator():
         return "Blog post generated successfully", 200
     except Exception as e:
         return f"Error: {e}", 500
+
+@app.route('/contact', methods=['POST'])
+def contact():
+    """Save a booking request from the homepage contact form."""
+    data = request.get_json(silent=True) or {}
+    name = (data.get('name') or '').strip()
+    phone = (data.get('phone') or '').strip()
+
+    if not name or not phone:
+        return jsonify({'success': False, 'error': 'Name and phone are required.'}), 400
+
+    conn = get_db_connection()
+    conn.execute(
+        '''
+        INSERT INTO contact_submissions (name, phone, email, pet_name, service, message)
+        VALUES (?, ?, ?, ?, ?, ?)
+        ''',
+        (
+            name,
+            phone,
+            (data.get('email') or '').strip(),
+            (data.get('pet_name') or '').strip(),
+            (data.get('service') or '').strip(),
+            (data.get('message') or '').strip(),
+        ),
+    )
+    conn.commit()
+    conn.close()
+    return jsonify({'success': True})
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    import anthropic
+    data = request.json
+    messages = data.get('messages', [])
+    
+    client = anthropic.Anthropic(api_key=os.environ.get('ANTHROPIC_API_KEY'))
+    
+    system = """You are the booking assistant for Pookie's Pet Care LLC, a trusted dog walking and pet sitting service in the South Denver Metro area run by Chris. Be warm, professional, and concise. Keep responses SHORT — 2-3 sentences max. Help visitors understand services and collect contact info so Chris can follow up. Collect: pet name/type, service needed, neighborhood, their name and phone/email. Services: dog walks starting at $30, drop-ins flexible, overnights starting at $75/night. Area: Lone Tree, Parker, Castle Rock, Highlands Ranch, Centennial, Aurora, Bennett. Once you have all info, confirm and say Chris will reach out within 24 hours. Then output on a new line: LEAD:{"name":"...","pet":"...","service":"...","location":"...","contact":"..."}"""
+    
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1000,
+        system=system,
+        messages=messages
+    )
+    return jsonify({"reply": response.content[0].text})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

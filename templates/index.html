@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pookie's Pet Care | Dog Walking & Pet Sitting | South Denver Metro</title>
-  <meta name="description" content="Professional dog walking and pet sitting in Lone Tree, Parker, Castle Rock, and Highlands Ranch. Locally owned registered LLC, trusted by local families. Text or call Chris Patino today." />
-  <meta name="keywords" content="dog walking Lone Tree, pet sitting Parker CO, dog walker Castle Rock, Highlands Ranch pet care, Bennett dog walking, South Denver Metro pet sitter" />
+  <title>Pookie's Pet Care | Dog Walking, Drop-Ins &amp; House Sitting</title>
+  <meta name="description" content="Pookie's Pet Care offers reliable dog walking, drop-in visits, house sitting, and personal pet care for local families. Call Chris to book trusted pet care." />
+  <meta name="keywords" content="dog walking, pet care, drop-in visits, house sitting, local pet sitter, pet care near me, South Denver Metro" />
   <link rel="icon" href="{{ url_for('static', filename='pookies-logo.png') }}" />
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='pookies-logo.png') }}" />
 
@@ -14,16 +14,16 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Pookie's Pet Care" />
   <meta property="og:url" content="https://pookiespetcare.com/" />
-  <meta property="og:title" content="Pookie's Pet Care | Dog Walking &amp; Pet Sitting | South Denver Metro" />
-  <meta property="og:description" content="Locally owned dog walking, drop-ins, overnight care, and weekend pet sitting from Chris Patino across Lone Tree, Parker, Castle Rock, Aurora, Bennett, and the South Denver Metro." />
+  <meta property="og:title" content="Pookie's Pet Care | Dog Walking, Drop-Ins &amp; House Sitting" />
+  <meta property="og:description" content="Pookie's Pet Care offers reliable dog walking, drop-in visits, house sitting, and personal pet care for local families. Call Chris to book trusted pet care." />
   <meta property="og:image" content="https://pookiespetcare.com/static/social-preview.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Pookie's Pet Care | Dog Walking &amp; Pet Sitting | South Denver Metro" />
-  <meta name="twitter:description" content="Locally owned dog walking, drop-ins, overnight care, and weekend pet sitting from Chris Patino across Lone Tree, Parker, Castle Rock, Aurora, Bennett, and the South Denver Metro." />
+  <meta name="twitter:title" content="Pookie's Pet Care | Dog Walking, Drop-Ins &amp; House Sitting" />
+  <meta name="twitter:description" content="Pookie's Pet Care offers reliable dog walking, drop-in visits, house sitting, and personal pet care for local families. Call Chris to book trusted pet care." />
   <meta name="twitter:image" content="https://pookiespetcare.com/static/social-preview.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -111,9 +111,27 @@
       display: inline-flex !important; align-items: center; gap: 8px;
       background: var(--amber) !important; color: var(--white) !important;
       padding: 10px 22px; border-radius: 50px;
+      min-height: 44px;
       transition: background .2s, transform .2s !important;
     }
     .nav-cta:hover { background: var(--amber-lt) !important; transform: translateY(-1px); }
+    .nav-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-cta-secondary {
+      background: transparent !important;
+      color: rgba(255,255,255,.92) !important;
+      border: 2px solid rgba(255,255,255,.35) !important;
+      box-shadow: none !important;
+    }
+    .nav-cta-secondary:hover {
+      background: rgba(255,255,255,.1) !important;
+      border-color: rgba(255,255,255,.6) !important;
+      color: var(--white) !important;
+    }
 
     /* Hamburger button (hidden on desktop) */
     .hamburger {
@@ -216,8 +234,9 @@
     }
     .cinematic-title-bold {
       display: block;
+      font-family: 'Outfit', sans-serif;
       font-size: clamp(2.6rem, 7vw, 5rem);
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: -.03em;
       margin-top: -0.06em;
     }
@@ -289,8 +308,73 @@
       color: rgba(255,255,255,.58);
       letter-spacing: .04em;
     }
+    .cinematic-title--service {
+      display: block;
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.85rem, 4.8vw, 3.25rem);
+      font-weight: 600;
+      letter-spacing: -.03em;
+      line-height: 1.14;
+      color: var(--white);
+      margin-bottom: 28px;
+      text-shadow: 0 4px 48px rgba(0,0,0,.4), 0 2px 12px rgba(0,0,0,.28);
+    }
 
-    /* ── TRUST BAR ─────────────────────────────── */
+    /* ── TRUST SECTION ─────────────────────────── */
+    .trust-sec {
+      background: var(--white);
+      padding: 56px 52px;
+      border-bottom: 1px solid rgba(25, 47, 25, 0.06);
+    }
+    .trust-cards {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .trust-card {
+      background: var(--cream);
+      border-radius: 18px;
+      padding: 28px 24px;
+      border: 1px solid rgba(25, 47, 25, 0.06);
+      box-shadow: 0 4px 22px rgba(25, 47, 25, 0.05);
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .trust-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(25, 47, 25, 0.08);
+    }
+    .trust-card-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      color: var(--amber);
+      background: rgba(196, 122, 42, 0.1);
+      border: 1px solid rgba(196, 122, 42, 0.22);
+    }
+    .trust-card-icon .ppc-icon { width: 22px; height: 22px; }
+    .trust-card-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -.01em;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .trust-card-desc {
+      font-size: .84rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── TRUST BAR (legacy helpers) ────────────── */
     .trust-bar { background: var(--cream-dk); border-bottom: 1px solid rgba(0,0,0,.07); padding: 18px 52px; }
     .trust-inner {
       max-width: 1200px; margin: 0 auto;
@@ -322,7 +406,7 @@
     .ti-sub { font-size: .7rem; font-weight: 400; color: var(--text-lt); }
 
     /* ── SECTIONS BASE ─────────────────────────── */
-    section { padding: 96px 52px; }
+    section { padding: 100px 52px; }
     .si { max-width: 1200px; margin: 0 auto; }
     .label {
       font-size: .72rem; font-weight: 600; letter-spacing: .12em;
@@ -350,8 +434,8 @@
     }
     .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); gap: 20px; }
     .svc-card {
-      background: var(--cream); border-radius: 20px; padding: 30px 28px;
-      border: 1px solid transparent; transition: transform .25s, box-shadow .25s, border-color .25s;
+      background: var(--cream); border-radius: 20px; padding: 32px 30px;
+      border: 1px solid rgba(25, 47, 25, 0.05); transition: transform .25s, box-shadow .25s, border-color .25s;
       display: flex; flex-direction: column;
     }
     .svc-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,.08); border-color: var(--cream-dk); }
@@ -414,8 +498,15 @@
     .hiw-head { margin-bottom: 40px; max-width: 560px; }
     .hiw-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .hiw-step:nth-child(3) {
+      grid-column: 1 / -1;
+      width: calc((100% - 18px) / 2);
+      justify-self: center;
     }
     .hiw-step {
       background: var(--white);
@@ -617,6 +708,15 @@
     }
     .about-body { font-size: .98rem; color: var(--text-mid); line-height: 1.78; font-weight: 300; margin-top: 20px; }
     .about-body p + p { margin-top: 16px; }
+    .about-trust-chips {
+      justify-content: flex-start;
+      margin-top: 24px;
+    }
+    .about-trust-chips .owner-trust-chip {
+      color: var(--g-mid);
+      background: rgba(43, 82, 32, 0.08);
+      border-color: rgba(43, 82, 32, 0.15);
+    }
     .about-stats { display: flex; gap: 32px; margin-top: 36px; flex-wrap: wrap; }
     .stat-n { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 600; color: var(--text); line-height: 1; }
     .stat-l { font-size: .76rem; color: var(--text-lt); margin-top: 4px; }
@@ -862,6 +962,22 @@
       border: 1px solid var(--cream-dk);
     }
     .area-tag.primary { background: rgba(43,82,32,.08); color: var(--g-mid); border-color: rgba(43,82,32,.15); }
+    .area-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .area-chip {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: var(--g-mid);
+      background: rgba(43, 82, 32, 0.08);
+      border: 1px solid rgba(43, 82, 32, 0.15);
+      padding: 6px 12px;
+      border-radius: 50px;
+    }
     .service-area-card {
       background: var(--g-dark);
       border-radius: 20px;
@@ -889,7 +1005,7 @@
       color: rgba(255,255,255,.92);
       line-height: 1.55;
       letter-spacing: -.01em;
-      margin-bottom: 24px;
+      margin-bottom: 0;
     }
     .service-area-note {
       font-size: .82rem;
@@ -898,21 +1014,6 @@
       font-weight: 300;
       padding-top: 20px;
       border-top: 1px solid rgba(255,255,255,.12);
-    }
-    .service-area-cities {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .service-area-city {
-      font-size: .72rem;
-      font-weight: 600;
-      letter-spacing: .04em;
-      color: var(--amber-lt);
-      background: rgba(232,150,58,.12);
-      border: 1px solid rgba(232,150,58,.25);
-      padding: 6px 12px;
-      border-radius: 50px;
     }
 
     /* ── FAQ ───────────────────────────────────── */
@@ -981,20 +1082,152 @@
       font-weight: 300;
     }
 
-    /* ── CTA BAND ──────────────────────────────── */
-    .cta-band { background: var(--amber); padding: 80px 52px; text-align: center; }
+    /* ── CTA / CONTACT ─────────────────────────── */
+    .cta-band { background: var(--amber); padding: 88px 52px; }
+    .cta-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 52px;
+      align-items: start;
+    }
+    .cta-form-wrap {
+      order: 2;
+    }
+    .cta-copy {
+      order: 1;
+    }
+    .cta-copy { text-align: left; }
     .cta-band h2 { color: var(--white); margin-bottom: 12px; }
     .cta-band h2 em { color: rgba(255,255,255,.8); }
-    .cta-band .sub-text { color: rgba(255,255,255,.85); margin: 0 auto 40px; }
+    .cta-band .sub-text { color: rgba(255,255,255,.88); margin: 0 0 28px; max-width: none; }
+    .cta-phone-row {
+      margin-bottom: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
     .btn-white {
-      display: inline-flex; align-items: center; gap: 10px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
       background: var(--white); color: var(--amber); text-decoration: none;
       padding: 18px 44px; border-radius: 50px;
       font-weight: 700; font-size: 1.05rem;
+      min-height: 52px;
       box-shadow: 0 4px 28px rgba(0,0,0,.18);
       transition: transform .2s, box-shadow .2s;
     }
     .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 44px rgba(0,0,0,.22); }
+    .btn-white-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,.55);
+      box-shadow: none;
+    }
+    .btn-white-secondary:hover {
+      background: rgba(255,255,255,.12);
+      border-color: var(--white);
+      color: var(--white);
+      box-shadow: 0 8px 32px rgba(0,0,0,.12);
+    }
+    .contact-form-success {
+      background: #ecfdf3;
+      border: 1px solid #86efac;
+      border-radius: 14px;
+      padding: 28px 24px;
+      text-align: center;
+      color: #166534;
+    }
+    .contact-form-success strong {
+      display: block;
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem;
+      color: #15803d;
+      margin-bottom: 8px;
+    }
+    .contact-form-success p {
+      font-size: .9rem;
+      line-height: 1.6;
+      color: #14532d;
+      font-weight: 400;
+    }
+    .contact-form-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14);
+      text-align: left;
+    }
+    .contact-form-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 18px;
+      letter-spacing: -.01em;
+    }
+    .contact-form {
+      display: grid;
+      gap: 14px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .contact-form label {
+      display: grid;
+      gap: 6px;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      font-family: 'Outfit', sans-serif;
+      font-size: .95rem;
+      font-weight: 400;
+      color: var(--text);
+      background: var(--cream);
+      border: 1px solid rgba(25, 47, 25, 0.1);
+      border-radius: 12px;
+      padding: 13px 14px;
+      width: 100%;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--amber);
+      box-shadow: 0 0 0 3px rgba(196, 122, 42, 0.15);
+    }
+    .contact-form textarea { min-height: 96px; resize: vertical; }
+    .btn-form-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 52px;
+      margin-top: 4px;
+      background: var(--g-dark);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .btn-form-submit:hover { background: var(--g-mid); transform: translateY(-2px); }
+    .contact-form-note {
+      margin-top: 12px;
+      font-size: .76rem;
+      color: var(--text-lt);
+      line-height: 1.5;
+      font-weight: 300;
+    }
 
     /* ── FOOTER (3-column) ─────────────────────── */
     footer { background: var(--text); padding: 56px 52px 32px; }
@@ -1077,10 +1310,221 @@
       font-size: .76rem; color: rgba(255,255,255,.35);
     }
 
+    /* ── CHAT WIDGET ───────────────────────────── */
+    .ppc-chat-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 250;
+      font-family: 'Outfit', sans-serif;
+    }
+    .ppc-chat-toggle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      background: #EF9F27;
+      color: var(--white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(239, 159, 39, 0.45), 0 2px 8px rgba(0, 0, 0, 0.12);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .ppc-chat-toggle:hover {
+      transform: scale(1.06);
+      box-shadow: 0 8px 28px rgba(239, 159, 39, 0.55), 0 4px 12px rgba(0, 0, 0, 0.14);
+    }
+    .ppc-chat-toggle svg { width: 26px; height: 26px; }
+    .ppc-chat-panel {
+      position: absolute;
+      bottom: 68px;
+      right: 0;
+      width: 360px;
+      max-width: calc(100vw - 48px);
+      max-height: min(520px, calc(100vh - 120px));
+      background: var(--white);
+      border-radius: 18px;
+      box-shadow: 0 16px 48px rgba(25, 47, 25, 0.18), 0 4px 16px rgba(0, 0, 0, 0.08);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(25, 47, 25, 0.08);
+    }
+    .ppc-chat-panel.open { display: flex; }
+    .ppc-chat-header {
+      background: linear-gradient(135deg, #c47a2a 0%, #e8963a 100%);
+      padding: 14px 16px;
+      color: var(--white);
+      flex-shrink: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .ppc-chat-header-text { flex: 1; min-width: 0; }
+    .ppc-chat-close {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      color: var(--white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: background .2s;
+    }
+    .ppc-chat-close:hover { background: rgba(255, 255, 255, 0.3); }
+    .ppc-chat-header-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      margin-bottom: 4px;
+    }
+    .ppc-chat-header-sub {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: .76rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.88);
+    }
+    .ppc-chat-live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.35);
+      animation: ppcChatPulse 2s ease infinite;
+    }
+    @keyframes ppcChatPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .55; }
+    }
+    .ppc-chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--cream);
+      min-height: 200px;
+    }
+    .ppc-chat-bubble {
+      max-width: 88%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: .88rem;
+      line-height: 1.55;
+      font-weight: 400;
+      word-break: break-word;
+    }
+    .ppc-chat-bubble--bot {
+      align-self: flex-start;
+      background: var(--white);
+      color: var(--text);
+      border: 1px solid rgba(25, 47, 25, 0.07);
+      border-bottom-left-radius: 4px;
+    }
+    .ppc-chat-bubble--user {
+      align-self: flex-end;
+      background: var(--g-mid);
+      color: var(--white);
+      border-bottom-right-radius: 4px;
+    }
+    .ppc-chat-bubble--typing {
+      align-self: flex-start;
+      background: var(--white);
+      color: var(--text-lt);
+      border: 1px solid rgba(25, 47, 25, 0.07);
+      font-style: italic;
+    }
+    .ppc-chat-lead-card {
+      align-self: stretch;
+      background: #ecfdf3;
+      border: 1px solid #86efac;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: .82rem;
+      color: #166534;
+      line-height: 1.55;
+    }
+    .ppc-chat-lead-card strong {
+      display: block;
+      font-size: .88rem;
+      margin-bottom: 8px;
+      color: #15803d;
+    }
+    .ppc-chat-lead-card dl {
+      display: grid;
+      gap: 6px;
+      margin: 0;
+    }
+    .ppc-chat-lead-card dt {
+      font-weight: 600;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: #16a34a;
+    }
+    .ppc-chat-lead-card dd {
+      margin: 0 0 4px;
+      color: #14532d;
+    }
+    .ppc-chat-form {
+      display: flex;
+      gap: 8px;
+      padding: 12px;
+      border-top: 1px solid rgba(25, 47, 25, 0.08);
+      background: var(--white);
+      flex-shrink: 0;
+    }
+    .ppc-chat-input {
+      flex: 1;
+      font-family: 'Outfit', sans-serif;
+      font-size: .9rem;
+      padding: 11px 14px;
+      border: 1px solid rgba(25, 47, 25, 0.12);
+      border-radius: 50px;
+      background: var(--cream);
+      color: var(--text);
+      min-width: 0;
+    }
+    .ppc-chat-input:focus {
+      outline: none;
+      border-color: #EF9F27;
+      box-shadow: 0 0 0 3px rgba(239, 159, 39, 0.2);
+    }
+    .ppc-chat-send {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: #EF9F27;
+      color: var(--white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, transform .2s;
+    }
+    .ppc-chat-send:hover:not(:disabled) { background: #e8963a; transform: scale(1.05); }
+    .ppc-chat-send:disabled { opacity: .5; cursor: not-allowed; }
+    .ppc-chat-send svg { width: 18px; height: 18px; }
+
     /* ── FLOATING CALL BUTTON (mobile only) ────── */
     .fab-call {
-      display: none;
-      position: fixed; bottom: 20px; right: 20px; z-index: 300;
+      display: inline-flex;
+      position: static;
       background: var(--amber); color: var(--white); text-decoration: none;
       align-items: center; gap: 8px;
       padding: 14px 22px; border-radius: 50px;
@@ -1089,6 +1533,26 @@
       transition: transform .2s, box-shadow .2s;
     }
     .fab-call:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(196,122,42,.65); }
+    .fab-group {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 300;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .fab-text {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,.75);
+      box-shadow: 0 8px 28px rgba(0,0,0,.25);
+    }
+    .fab-text:hover {
+      background: rgba(255,255,255,.15);
+      box-shadow: 0 12px 36px rgba(0,0,0,.3);
+    }
 
     /* ── ANIMATIONS ────────────────────────────── */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
@@ -1100,12 +1564,25 @@
     .cinematic-hero-content > *:nth-child(5) { animation-delay: .8s; }
 
     /* ── RESPONSIVE ────────────────────────────── */
+    @media (min-width: 821px) {
+      .ppc-chat-widget {
+        left: 24px;
+        right: auto;
+      }
+      .ppc-chat-panel {
+        left: 0;
+        right: auto;
+      }
+    }
     @media (max-width: 1024px) {
       .visit-grid--6,
       .visit-grid--5,
       .visit-grid--4 { grid-template-columns: repeat(2, 1fr); max-width: 680px; }
       .visit-grid--5 .visit-photo { grid-column: auto !important; }
-      .hiw-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-cards { grid-template-columns: repeat(2, 1fr); }
+      .cta-inner { grid-template-columns: 1fr; gap: 36px; }
+      .cta-form-wrap { order: 1; }
+      .cta-copy { order: 2; }
       .every-visit-inner { grid-template-columns: 1fr; gap: 32px; }
     }
     @media (max-width: 560px) {
@@ -1119,8 +1596,14 @@
       .logo-badge-nav { padding: 7px 9px; border-radius: 17px; }
       .logo-badge-nav img { width: 70px; }
       section { padding: 64px 24px; }
+      .trust-sec { padding: 40px 24px; }
+      .trust-cards { grid-template-columns: 1fr; gap: 12px; }
       .trust-bar { padding: 16px 24px; }
       .trust-inner { gap: 18px; }
+      .form-row { grid-template-columns: 1fr; }
+      .cta-band { padding: 64px 24px; }
+      .cta-copy { text-align: center; }
+      .cta-band .sub-text { margin: 0 auto 28px; }
 
       /* Show hamburger, hide desktop nav links */
       .hamburger { display: flex; }
@@ -1139,9 +1622,13 @@
       .nav-links a { display: block; padding: 12px 16px; border-radius: 10px; font-size: .95rem; }
       .nav-links a:hover { background: rgba(255,255,255,.07); }
       .nav-cta { text-align: center; border-radius: 10px !important; }
+      .nav-cta-group { flex-direction: column; width: 100%; gap: 8px; }
+      .nav-cta-group .nav-cta { width: 100%; justify-content: center; }
 
-      /* Show floating call button */
-      .fab-call { display: flex; }
+      /* Show floating call/text buttons — left side so chat stays bottom-right */
+      .fab-group { display: flex; }
+      .ppc-chat-panel { width: calc(100vw - 48px); max-height: min(420px, calc(100vh - 160px)); }
+      .cta-band { padding-bottom: 88px; }
 
       .cinematic-hero {
         min-height: 88svh;
@@ -1172,7 +1659,12 @@
       }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .hiw-sec, .every-visit-sec { padding: 64px 24px; }
-      .hiw-grid { grid-template-columns: 1fr; gap: 12px; }
+      .hiw-grid { grid-template-columns: 1fr; gap: 12px; max-width: none; }
+      .hiw-step:nth-child(3) {
+        grid-column: auto;
+        width: auto;
+        justify-self: stretch;
+      }
       .every-visit-checklist { grid-template-columns: 1fr; padding: 20px 18px; }
       .owner-profile-card { max-width: 100%; margin: 0 auto; padding: 32px 24px 28px; }
       .owner-photo-wrap { max-width: 100%; }
@@ -1184,7 +1676,6 @@
       .testi-actions { flex-direction: column; align-items: stretch; }
       .testi-btn { width: 100%; }
       .testi-emotional { font-size: .9rem; padding: 0 4px; }
-      .cta-band { padding: 60px 24px; }
       .faq-sec { padding: 64px 24px; }
       .faq-item summary { font-size: .96rem; padding: 16px 18px; }
       .faq-answer { padding: 0 18px 16px; font-size: .86rem; }
@@ -1209,7 +1700,10 @@
     <li><a href="#reviews">Reviews</a></li>
     <li><a href="#areas">Areas</a></li>
     <li><a href="/blog">Blog</a></li>
-    <li><a href="#" class="nav-cta phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Call Chris</a></li>
+    <li class="nav-cta-group">
+      <a href="#" class="nav-cta phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Call Chris</a>
+      <a href="sms:5856233030" class="nav-cta nav-cta-secondary sms-link">{{ ppc_icon('message-square', 'ppc-icon--btn') }} Text Chris</a>
+    </li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -1236,29 +1730,43 @@
       <span class="cinematic-title-bold">Pet Care</span>
     </h1>
     <p class="cinematic-subtitle">
-      Dog walking, drop-ins, and overnight care from a real local neighbor — locally owned, registered LLC, and trusted by families across Lone Tree, Parker, Castle Rock, Aurora, Bennett, and beyond.
+      Dog walking, drop-ins, and overnight care from a real local neighbor — trusted by families across Lone Tree, Parker, Castle Rock, Aurora, Bennett, and beyond.
     </p>
     <div class="cinematic-cta-group">
       <div class="cinematic-cta-row">
-        <a href="#" class="cinematic-cta cinematic-cta-primary meet-greet-link">{{ ppc_icon('paw-print', 'ppc-icon--btn') }} Schedule a Free Meet &amp; Greet</a>
-        <a href="#" class="cinematic-cta cinematic-cta-secondary sms-link">Text Chris</a>
+        <a href="#" class="cinematic-cta cinematic-cta-primary phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Text or Call Chris</a>
+        <a href="#services" class="cinematic-cta cinematic-cta-secondary">View Services</a>
       </div>
       <p class="cinematic-note">Free intro visit · No commitment · Meet Chris before the first visit</p>
     </div>
   </div>
 </section>
 
-<!-- ─── TRUST BAR ──────────────────────────────────────── -->
-<div class="trust-bar">
-  <div class="trust-inner">
-    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('badge-check') }}</span><div class="ti-text"><span class="ti-label">Registered LLC</span><span class="ti-sub">Locally owned pet care business</span></div></div>
-    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('star') }}</span><div class="ti-text"><span class="ti-label">5-Star Google Rating</span><span class="ti-sub">{{ google_rating.count }} reviews from local families</span></div></div>
-    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('camera') }}</span><div class="ti-text"><span class="ti-label">Photo Updates</span><span class="ti-sub">Visit recap after every visit</span></div></div>
-    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('handshake') }}</span><div class="ti-text"><span class="ti-label">Free Meet &amp; Greet</span><span class="ti-sub">Meet Chris before the first visit</span></div></div>
-    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('map-pin') }}</span><div class="ti-text"><span class="ti-label">South Denver Metro</span><span class="ti-sub">Lone Tree, Parker, Castle Rock &amp; more</span></div></div>
-    <div class="ti"><span class="ti-icon-badge" aria-hidden="true">{{ ppc_icon('calendar-check') }}</span><div class="ti-text"><span class="ti-label">Holidays &amp; Weekends</span><span class="ti-sub">Available when you need it most</span></div></div>
+<!-- ─── TRUST SECTION ─────────────────────────────────── -->
+<section class="trust-sec" aria-label="Why pet parents trust Pookie's Pet Care">
+  <div class="trust-cards">
+    <div class="trust-card">
+      <span class="trust-card-icon" aria-hidden="true">{{ ppc_icon('paw-print') }}</span>
+      <h3 class="trust-card-title">One-on-one care</h3>
+      <p class="trust-card-desc">Never group walks — your pet gets my full attention every visit.</p>
+    </div>
+    <div class="trust-card">
+      <span class="trust-card-icon" aria-hidden="true">{{ ppc_icon('camera') }}</span>
+      <h3 class="trust-card-title">Visit updates</h3>
+      <p class="trust-card-desc">A quick recap and photo after every appointment so you know they're doing well.</p>
+    </div>
+    <div class="trust-card">
+      <span class="trust-card-icon" aria-hidden="true">{{ ppc_icon('handshake') }}</span>
+      <h3 class="trust-card-title">Local &amp; personal</h3>
+      <p class="trust-card-desc">Reliable, consistent care from a real local pet sitter — not a rotating app stranger.</p>
+    </div>
+    <div class="trust-card">
+      <span class="trust-card-icon" aria-hidden="true">{{ ppc_icon('home') }}</span>
+      <h3 class="trust-card-title">All pets welcome</h3>
+      <p class="trust-card-desc">Dogs, cats, and small pets — calm, patient handling for every personality.</p>
+    </div>
   </div>
-</div>
+</section>
 
 <!-- ─── SERVICES ──────────────────────────────────────── -->
 <section class="svc-sec" id="services">
@@ -1273,7 +1781,7 @@
         <span class="svc-icon-badge" aria-hidden="true">{{ ppc_icon('paw-print') }}</span>
         <div class="svc-name">Dog Walking</div>
         <div class="svc-desc">30-minute local walks. Your dog gets real outdoor time and one-on-one attention — not a group rush.</div>
-        <div><span class="svc-price">$30</span><span class="svc-unit">/ visit (local area)</span></div>
+        <div><span class="svc-price">Starting at $30</span><span class="svc-unit">/ walk</span></div>
         <ul class="svc-list">
           <li>Local area visits</li>
           <li>One-on-one attention</li>
@@ -1283,11 +1791,12 @@
       <div class="svc-card">
         <span class="svc-icon-badge" aria-hidden="true">{{ ppc_icon('home') }}</span>
         <div class="svc-name">Drop-In Visit</div>
-        <div class="svc-desc">Check-ins for feeding, a quick walk, playtime, and a visit recap so you know your pet is good.</div>
-        <div><span class="svc-price">$30–45</span><span class="svc-unit">/ visit</span></div>
+        <div class="svc-desc">Check-ins for feeding, potty breaks, walks, playtime, and making sure your pet is comfortable.</div>
+        <div><span class="svc-price">Starting at $30</span><span class="svc-unit">/ visit</span></div>
         <ul class="svc-list">
-          <li>Dogs, cats &amp; small pets</li>
-          <li>Feeding, water &amp; playtime</li>
+          <li>Quick potty/feed visits</li>
+          <li>Walks or playtime available</li>
+          <li>Longer visits priced by time and care needed</li>
           <li>Visit recap every time</li>
         </ul>
       </div>
@@ -1295,7 +1804,7 @@
         <span class="svc-icon-badge" aria-hidden="true">{{ ppc_icon('moon') }}</span>
         <div class="svc-name">Overnight / House Sitting</div>
         <div class="svc-desc">I stay at your home so your dog sleeps in their own space, in their own routine — not a stranger's kennel.</div>
-        <div><span class="svc-price">$75+</span><span class="svc-unit">/ night</span></div>
+        <div><span class="svc-price">Starting at $75</span><span class="svc-unit">/ night</span></div>
         <ul class="svc-list">
           <li>Sleep in their own home</li>
           <li>Full daily routine maintained</li>
@@ -1306,11 +1815,11 @@
         <span class="svc-icon-badge" aria-hidden="true">{{ ppc_icon('calendar-days') }}</span>
         <div class="svc-name">Weekend Package</div>
         <div class="svc-desc">Full weekend coverage (Fri–Sun), three walks per day, complete peace of mind for your trip.</div>
-        <div><span class="svc-price">$199</span><span class="svc-unit">/ weekend flat rate</span></div>
+        <div><span class="svc-price">$199+</span><span class="svc-unit">/ weekend</span></div>
         <ul class="svc-list">
           <li>Fri–Sun coverage</li>
           <li>3 walks per day</li>
-          <li>Simple flat-rate pricing</li>
+          <li>Custom weekend care based on your pet's needs</li>
         </ul>
       </div>
     </div>
@@ -1333,34 +1842,26 @@
       <div class="hiw-step">
         <div class="hiw-step-top">
           <span class="hiw-step-num">1</span>
-          <span class="hiw-icon-badge" aria-hidden="true">{{ ppc_icon('handshake') }}</span>
+          <span class="hiw-icon-badge" aria-hidden="true">{{ ppc_icon('smartphone') }}</span>
         </div>
-        <h3 class="hiw-step-title">Free Meet &amp; Greet</h3>
-        <p class="hiw-step-desc">We meet first so your pet can get comfortable and you can show me the routine.</p>
+        <h3 class="hiw-step-title">Reach Out</h3>
+        <p class="hiw-step-desc">Call or message me with your pet's needs, location, and schedule.</p>
       </div>
       <div class="hiw-step">
         <div class="hiw-step-top">
           <span class="hiw-step-num">2</span>
-          <span class="hiw-icon-badge" aria-hidden="true">{{ ppc_icon('clipboard-list') }}</span>
+          <span class="hiw-icon-badge" aria-hidden="true">{{ ppc_icon('handshake') }}</span>
         </div>
-        <h3 class="hiw-step-title">Custom Care Plan</h3>
-        <p class="hiw-step-desc">You tell me the feeding schedule, walk preferences, house access, behavior notes, and anything important.</p>
+        <h3 class="hiw-step-title">Meet &amp; Plan</h3>
+        <p class="hiw-step-desc">We'll make sure it's a good fit and go over your pet's routine, personality, and care needs.</p>
       </div>
       <div class="hiw-step">
         <div class="hiw-step-top">
           <span class="hiw-step-num">3</span>
           <span class="hiw-icon-badge" aria-hidden="true">{{ ppc_icon('camera') }}</span>
         </div>
-        <h3 class="hiw-step-title">Visit Updates</h3>
-        <p class="hiw-step-desc">After each visit, I send a quick recap and photo so you know how everything went.</p>
-      </div>
-      <div class="hiw-step">
-        <div class="hiw-step-top">
-          <span class="hiw-step-num">4</span>
-          <span class="hiw-icon-badge" aria-hidden="true">{{ ppc_icon('refresh-cw') }}</span>
-        </div>
-        <h3 class="hiw-step-title">Consistent Care</h3>
-        <p class="hiw-step-desc">Same person, same routine, less stress for your pet.</p>
+        <h3 class="hiw-step-title">Relax</h3>
+        <p class="hiw-step-desc">Your pet gets reliable care, and you get updates so you know they're safe and happy.</p>
       </div>
     </div>
   </div>
@@ -1436,11 +1937,18 @@
       </div>
       <div>
         <p class="label">Meet Chris</p>
-        <h2>The actual person<br>walking <em>your dog.</em></h2>
+        <h2>A local pet sitter who<br>treats pets like <em>family.</em></h2>
         <div class="about-body">
-          <p>I'm Chris — I run Pookie's Pet Care LLC out of the South Denver Metro area. I started this as a real business, not a side gig, because I genuinely love working with animals and I think dog owners deserve someone they can actually rely on.</p>
-          <p>I'm a registered LLC, and I keep my client roster manageable so your dog gets real attention. The dogs and cats I care for keep me honest about what good pet care actually looks like: calm, consistent, patient, and reliable.</p>
-          <p>If you're looking for someone consistent who'll actually care about your animal, shoot me a text. We'll do a free meet-and-greet first — no commitment, just an introduction.</p>
+          <p>Hi, I'm Chris, the person behind Pookie's Pet Care. I started this because I know how much trust it takes to let someone care for your pets and enter your home. My goal is simple: give your pets reliable, personal care while giving you peace of mind.</p>
+          <p>I provide local dog walking, drop-in visits, and house sitting with one-on-one attention — never group walks. I'm calm and patient with every pet, whether they're a high-energy pup, a shy cat, or a senior who needs a little extra time.</p>
+          <p>You'll get updates after every visit, and I treat your pets the way I'd want someone to treat mine. If that sounds like what you're looking for, reach out — we'll start with a free meet-and-greet so you can see if it's a good fit.</p>
+        </div>
+        <div class="owner-trust-chips about-trust-chips">
+          <span class="owner-trust-chip">Local pet care</span>
+          <span class="owner-trust-chip">One-on-one attention</span>
+          <span class="owner-trust-chip">Calm, patient handling</span>
+          <span class="owner-trust-chip">Updates after visits</span>
+          <span class="owner-trust-chip">Treats pets like family</span>
         </div>
         <div class="about-stats">
           <div>
@@ -1487,8 +1995,8 @@
     <div class="testi-top">
       <div class="testi-header">
         <p class="label">What People Say</p>
-        <h2>Real Google Reviews from Local Pet Families</h2>
-        <p class="testi-subrating">{{ google_rating.score }} stars from {{ google_rating.count }} Google reviews. Real feedback from families who trust Chris with walks, drop-ins, cats, overnight care, and high-energy dogs.</p>
+        <h2>Pet Parents Trust Pookie's Pet Care</h2>
+        <p class="testi-subrating">Real updates, reliable care, and pets who are happy to see me again. {{ google_rating.score }} stars from {{ google_rating.count }} Google reviews from local families.</p>
       </div>
       <div class="testi-summary-card">
         <div class="testi-score">{{ google_rating.score }}</div>
@@ -1500,6 +2008,7 @@
       </div>
     </div>
 
+    {# Reviews loaded from app.py TESTIMONIALS — real Google reviews. TODO: Replace with real client reviews if placeholders are added. #}
     <div class="testi-grid">
       {% for review in testimonials %}
       {# Only use client pet photos with permission. Set review.photo in app.py when approved. #}
@@ -1555,32 +2064,22 @@
   <div class="si">
     <div class="areas-grid">
       <div>
-        <p class="label">Where I Work</p>
-        <h2>South Denver Metro<br><em>is home base.</em></h2>
-        <p class="sub-text">I keep my service area focused so I can actually show up on time, every time.</p>
-        <ul class="areas-list">
-          <li><span class="dot"></span> Lone Tree <span class="area-tag primary">Primary area</span></li>
-          <li><span class="dot"></span> Parker <span class="area-tag primary">Primary area</span></li>
-          <li><span class="dot"></span> Castle Rock <span class="area-tag primary">Primary area</span></li>
-          <li><span class="dot"></span> Highlands Ranch <span class="area-tag primary">Primary area</span></li>
-          <li><span class="dot"></span> Aurora <span class="area-tag">Available</span></li>
-          <li><span class="dot"></span> Bennett <span class="area-tag">Weekends</span></li>
-        </ul>
+        <p class="label">Service Area</p>
+        <h2>Local Pet Care<br><em>Near You</em></h2>
+        <p class="sub-text">Pookie's Pet Care provides dog walking, drop-ins, and house sitting for local families in and around the surrounding area.</p>
+        <div class="area-chips">
+          <span class="area-chip">Local Area</span>
+          <span class="area-chip">Nearby Neighborhoods</span>
+          <span class="area-chip">Surrounding Communities</span>
+          <span class="area-chip">Custom locations by request</span>
+        </div>
       </div>
       <div class="service-area-card">
         {# TODO: Replace with Google Maps iframe embed when embed URL is available #}
         <div class="service-area-card-inner">
           <p class="label">Service Area</p>
-          <p class="service-area-text">Serving Lone Tree, Parker, Castle Rock, Highlands Ranch, Aurora, Bennett, and nearby South Denver Metro areas.</p>
-          <div class="service-area-cities">
-            <span class="service-area-city">Lone Tree</span>
-            <span class="service-area-city">Parker</span>
-            <span class="service-area-city">Castle Rock</span>
-            <span class="service-area-city">Highlands Ranch</span>
-            <span class="service-area-city">Aurora</span>
-            <span class="service-area-city">Bennett</span>
-          </div>
-          <p class="service-area-note">Focused local coverage so your pets get reliable, on-time care.</p>
+          <p class="service-area-text">Serving Lone Tree, Parker, Castle Rock, Highlands Ranch, Aurora, Bennett, Centennial, and nearby South Denver Metro communities.</p>
+          <p class="service-area-note">Focused local coverage — reliable, on-time dog walking and pet care near you.</p>
         </div>
       </div>
     </div>
@@ -1631,12 +2130,61 @@
   </div>
 </section>
 
-<!-- ─── CTA BAND ───────────────────────────────────────── -->
-<section class="cta-band">
-  <div class="si">
-    <h2>Ready to meet your dog's<br><em>new favorite person?</em></h2>
-    <p class="sub-text">Text or call Chris directly. Free meet-and-greet, no commitment.</p>
-    <a href="#" class="btn-white phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Text or Call Chris</a>
+<!-- ─── CTA / CONTACT ──────────────────────────────────── -->
+<section class="cta-band" id="contact">
+  <div class="cta-inner">
+    <div class="cta-copy">
+      <h2>Ready to Book<br><em>Pet Care?</em></h2>
+      <p class="sub-text">Call or send a message with your pet's name, service needed, location, and preferred dates.</p>
+      <div class="cta-phone-row">
+        <a href="#" class="btn-white phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Call Chris</a>
+        <a href="sms:5856233030" class="btn-white btn-white-secondary sms-link">{{ ppc_icon('message-square', 'ppc-icon--btn') }} Text Chris</a>
+      </div>
+    </div>
+    <div class="cta-form-wrap">
+    <div class="contact-form-card" id="contact-form-card">
+      <h3 class="contact-form-title">Send a Booking Request</h3>
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-row">
+          <label>
+            Name
+            <input type="text" name="name" required autocomplete="name" placeholder="Your name">
+          </label>
+          <label>
+            Phone
+            <input type="tel" name="phone" required autocomplete="tel" placeholder="(555) 555-5555">
+          </label>
+        </div>
+        <label>
+          Email
+          <input type="email" name="email" autocomplete="email" placeholder="you@email.com">
+        </label>
+        <div class="form-row">
+          <label>
+            Pet's Name
+            <input type="text" name="pet_name" placeholder="Your pet's name">
+          </label>
+          <label>
+            Service Needed
+            <select name="service">
+              <option value="">Select a service</option>
+              <option value="Dog Walking">Dog Walking</option>
+              <option value="Drop-In Visit">Drop-In Visit</option>
+              <option value="Overnight / House Sitting">Overnight / House Sitting</option>
+              <option value="Weekend Package">Weekend Package</option>
+              <option value="Not sure yet">Not sure yet</option>
+            </select>
+          </label>
+        </div>
+        <label>
+          Message / Dates Needed
+          <textarea name="message" placeholder="Tell me about your pet, location, and when you need care…"></textarea>
+        </label>
+        <button type="submit" class="btn-form-submit">Send Message</button>
+        <p class="contact-form-note">Chris responds quickly by phone or text. You can also use the chat button if you have a quick question.</p>
+      </form>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -1687,17 +2235,51 @@
   </div>
   <div class="footer-bottom">
     <span>© <span id="yr"></span> Pookie's Pet Care LLC · All rights reserved.</span>
-    <span>Serving Lone Tree · Parker · Castle Rock · Highlands Ranch · Aurora · Bennett, CO</span>
+    <span>Serving Lone Tree · Parker · Castle Rock · Highlands Ranch · Centennial · Aurora · Bennett, CO</span>
   </div>
 </footer>
 
-<!-- ─── FLOATING CALL BUTTON (mobile only) ───────────── -->
-<a href="#" class="fab-call phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Call Chris</a>
+<!-- ─── FLOATING CALL / TEXT (mobile only) ───────────── -->
+<div class="fab-group">
+  <a href="#" class="fab-call phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Call Chris</a>
+  <a href="sms:5856233030" class="fab-call fab-text sms-link">{{ ppc_icon('message-square', 'ppc-icon--btn') }} Text Chris</a>
+</div>
+
+<!-- ─── CHAT WIDGET ──────────────────────────────────── -->
+<div class="ppc-chat-widget" id="ppc-chat-widget">
+  <div class="ppc-chat-panel" id="ppc-chat-panel" role="dialog" aria-label="Pookie's Pet Care chat" aria-hidden="true">
+    <div class="ppc-chat-header">
+      <div class="ppc-chat-header-text">
+        <div class="ppc-chat-header-title">Pookie's Pet Care</div>
+        <div class="ppc-chat-header-sub">
+          <span class="ppc-chat-live-dot" aria-hidden="true"></span>
+          Questions about care &amp; booking
+        </div>
+      </div>
+      <button type="button" class="ppc-chat-close" id="ppc-chat-close" aria-label="Close chat">&times;</button>
+    </div>
+    <div class="ppc-chat-messages" id="ppc-chat-messages"></div>
+    <form class="ppc-chat-form" id="ppc-chat-form">
+      <input type="text" class="ppc-chat-input" id="ppc-chat-input" placeholder="Type a message…" autocomplete="off" aria-label="Chat message">
+      <button type="submit" class="ppc-chat-send" id="ppc-chat-send" aria-label="Send message" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+  <button type="button" class="ppc-chat-toggle" id="ppc-chat-toggle" aria-label="Open chat" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>
+  </button>
+</div>
 
 <script>
   // ══════════════════════════════════════════════════
   // ✏️  ONLY CHANGE THESE TWO LINES before publishing
   const PHONE_TEL     = '+15856233030';
+  const PHONE_SMS     = '5856233030';
   const PHONE_DISPLAY = '(585) 623-3030';
   // ══════════════════════════════════════════════════
 
@@ -1706,7 +2288,7 @@
     el.href = `tel:${PHONE_TEL}`;
   });
   document.querySelectorAll('.sms-link').forEach(el => {
-    el.href = `sms:${PHONE_TEL}`;
+    el.href = `sms:${PHONE_SMS}`;
   });
   document.querySelectorAll('.meet-greet-link').forEach(el => {
     const body = encodeURIComponent("Hi Chris, I'd like to schedule a free meet & greet.");
@@ -1715,6 +2297,49 @@
   document.querySelectorAll('.phone-display').forEach(el => {
     el.textContent = PHONE_DISPLAY;
   });
+
+  // Contact form — POST to /contact, save to SQLite
+  const contactForm = document.getElementById('contact-form');
+  const contactFormCard = document.getElementById('contact-form-card');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const submitBtn = contactForm.querySelector('.btn-form-submit');
+      const fd = new FormData(contactForm);
+      const payload = {
+        name: fd.get('name'),
+        phone: fd.get('phone'),
+        email: fd.get('email'),
+        pet_name: fd.get('pet_name'),
+        service: fd.get('service'),
+        message: fd.get('message'),
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      try {
+        const res = await fetch('/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || 'Submission failed');
+        }
+        contactFormCard.innerHTML = `
+          <div class="contact-form-success" role="status">
+            <strong>Message sent!</strong>
+            <p>Thanks for reaching out. Chris will get back to you shortly about your pet care request.</p>
+          </div>`;
+      } catch (_) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+        alert('Something went wrong sending your message. Please call or text Chris directly.');
+      }
+    });
+  }
 
   // Auto-update copyright year
   document.getElementById('yr').textContent = new Date().getFullYear();
@@ -1762,6 +2387,183 @@
       });
     });
   });
+
+  // ── Chat widget ──────────────────────────────────
+  (function () {
+    const panel    = document.getElementById('ppc-chat-panel');
+    const toggle   = document.getElementById('ppc-chat-toggle');
+    const closeBtn = document.getElementById('ppc-chat-close');
+    const messages = document.getElementById('ppc-chat-messages');
+    const form     = document.getElementById('ppc-chat-form');
+    const input    = document.getElementById('ppc-chat-input');
+    const sendBtn  = document.getElementById('ppc-chat-send');
+
+    const GREETING = "Hi, welcome to Pookie's Pet Care. I can help with dog walking, drop-ins, house sitting, availability, and basic pricing questions. What kind of care are you looking for?";
+
+    let history = [];
+    let busy = false;
+    let leadShown = false;
+    let greeted = false;
+    let typingEl = null;
+
+    function scrollToBottom() {
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function appendBubble(role, text) {
+      const el = document.createElement('div');
+      el.className = 'ppc-chat-bubble ppc-chat-bubble--' + role;
+      el.textContent = text;
+      messages.appendChild(el);
+      scrollToBottom();
+      return el;
+    }
+
+    function showTyping() {
+      if (typingEl) return;
+      typingEl = document.createElement('div');
+      typingEl.className = 'ppc-chat-bubble ppc-chat-bubble--typing';
+      typingEl.textContent = 'Typing…';
+      messages.appendChild(typingEl);
+      scrollToBottom();
+    }
+
+    function hideTyping() {
+      if (typingEl) {
+        typingEl.remove();
+        typingEl = null;
+      }
+    }
+
+    function parseReply(text) {
+      const match = text.match(/LEAD:\s*(\{[\s\S]*\})\s*$/);
+      let displayText = text;
+      let lead = null;
+      if (match) {
+        try {
+          lead = JSON.parse(match[1]);
+          displayText = text.replace(/LEAD:\s*\{[\s\S]*\}\s*$/, '').trim();
+        } catch (_) { /* keep full text if JSON parse fails */ }
+      }
+      return { displayText, lead };
+    }
+
+    function showLeadCard(lead) {
+      if (leadShown) return;
+      leadShown = true;
+
+      const card = document.createElement('div');
+      card.className = 'ppc-chat-lead-card';
+      card.innerHTML = '<strong>✓ Details captured — Chris will reach out soon!</strong>';
+
+      const dl = document.createElement('dl');
+      const fields = [
+        ['Name', lead.name],
+        ['Pet', lead.pet],
+        ['Service', lead.service],
+        ['Location', lead.location],
+        ['Contact', lead.contact],
+      ];
+      fields.forEach(([label, value]) => {
+        if (!value) return;
+        const dt = document.createElement('dt');
+        dt.textContent = label;
+        const dd = document.createElement('dd');
+        dd.textContent = value;
+        dl.appendChild(dt);
+        dl.appendChild(dd);
+      });
+      card.appendChild(dl);
+      messages.appendChild(card);
+      scrollToBottom();
+      input.disabled = true;
+      sendBtn.disabled = true;
+    }
+
+    async function callChat(msgs) {
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: msgs }),
+      });
+      if (!res.ok) throw new Error('Chat request failed');
+      const data = await res.json();
+      return data.reply;
+    }
+
+    async function handleReply(rawReply) {
+      const { displayText, lead } = parseReply(rawReply);
+      history.push({ role: 'assistant', content: rawReply });
+      appendBubble('bot', displayText);
+      if (lead) showLeadCard(lead);
+    }
+
+    async function sendUserMessage(text) {
+      if (busy || leadShown) return;
+      const trimmed = text.trim();
+      if (!trimmed) return;
+
+      busy = true;
+      sendBtn.disabled = true;
+      input.disabled = true;
+      appendBubble('user', trimmed);
+      history.push({ role: 'user', content: trimmed });
+      input.value = '';
+      showTyping();
+
+      try {
+        const reply = await callChat(history);
+        hideTyping();
+        await handleReply(reply);
+      } catch (_) {
+        hideTyping();
+        appendBubble('bot', 'Sorry, something went wrong. Please call or text Chris directly.');
+      } finally {
+        busy = false;
+        if (!leadShown) {
+          input.disabled = false;
+          sendBtn.disabled = !input.value.trim();
+          input.focus();
+        }
+      }
+    }
+
+    function showGreeting() {
+      if (greeted) return;
+      greeted = true;
+      appendBubble('bot', GREETING);
+      history.push({ role: 'assistant', content: GREETING });
+      sendBtn.disabled = !input.value.trim();
+    }
+
+    function setPanelOpen(open) {
+      panel.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close chat' : 'Open chat');
+      panel.setAttribute('aria-hidden', String(!open));
+      if (open) {
+        showGreeting();
+        if (!leadShown) input.focus();
+      }
+    }
+
+    toggle.addEventListener('click', () => {
+      setPanelOpen(!panel.classList.contains('open'));
+    });
+
+    closeBtn.addEventListener('click', () => {
+      setPanelOpen(false);
+    });
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      sendUserMessage(input.value);
+    });
+
+    input.addEventListener('input', () => {
+      sendBtn.disabled = busy || leadShown || !input.value.trim();
+    });
+  })();
 </script>
 
 </body>
