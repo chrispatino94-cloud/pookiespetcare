@@ -1,9 +1,14 @@
 import sqlite3
 import os
 import datetime
+
+import anthropic
+from dotenv import load_dotenv
 from flask import Flask, render_template, abort, request, jsonify
 
 from blog_generator import generate_post
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -321,21 +326,28 @@ def contact():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    import anthropic
-    data = request.json
+    api_key = os.environ.get('ANTHROPIC_API_KEY')
+    if not api_key:
+        app.logger.error('ANTHROPIC_API_KEY is not set')
+        return jsonify({'error': 'Chat is temporarily unavailable.'}), 503
+
+    data = request.get_json(silent=True) or {}
     messages = data.get('messages', [])
-    
-    client = anthropic.Anthropic(api_key=os.environ.get('ANTHROPIC_API_KEY'))
-    
+
     system = """You are the booking assistant for Pookie's Pet Care LLC, a trusted dog walking and pet sitting service in the South Denver Metro area run by Chris. Be warm, professional, and concise. Keep responses SHORT — 2-3 sentences max. Help visitors understand services and collect contact info so Chris can follow up. Collect: pet name/type, service needed, neighborhood, their name and phone/email. Services: dog walks starting at $30, drop-ins flexible, overnights starting at $75/night. Area: Lone Tree, Parker, Castle Rock, Highlands Ranch, Centennial, Aurora, Bennett. Once you have all info, confirm and say Chris will reach out within 24 hours. Then output on a new line: LEAD:{"name":"...","pet":"...","service":"...","location":"...","contact":"..."}"""
-    
-    response = client.messages.create(
-        model="claude-sonnet-4-6",
-        max_tokens=1000,
-        system=system,
-        messages=messages
-    )
-    return jsonify({"reply": response.content[0].text})
+
+    try:
+        client = anthropic.Anthropic(api_key=api_key)
+        response = client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=1000,
+            system=system,
+            messages=messages,
+        )
+        return jsonify({"reply": response.content[0].text})
+    except Exception:
+        app.logger.exception('Chat request failed')
+        return jsonify({'error': 'Chat request failed.'}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
