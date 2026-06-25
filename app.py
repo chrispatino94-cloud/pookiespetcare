@@ -1,10 +1,13 @@
 import sqlite3
 import os
 import datetime
+import traceback
+from zoneinfo import ZoneInfo
 
 import anthropic
 from dotenv import load_dotenv
 from flask import Flask, render_template, abort, request, jsonify
+from twilio.rest import Client
 
 from blog_generator import generate_post
 
@@ -295,6 +298,50 @@ def run_blog_generator():
     except Exception as e:
         return f"Error: {e}", 500
 
+def booking_received_at_mt():
+    """Format current time in Mountain Time for SMS notifications."""
+    now = datetime.datetime.now(ZoneInfo('America/Denver'))
+    hour = now.hour % 12 or 12
+    ampm = 'am' if now.hour < 12 else 'pm'
+    return f"{now:%Y-%m-%d} {hour}:{now.minute:02d}{ampm} MT"
+
+
+def send_booking_notification(submission):
+    """SMS Chris when a booking form is submitted. Returns True if sent."""
+    print('[SMS DEBUG] send_booking_notification called', flush=True)
+    sid = os.environ.get('TWILIO_ACCOUNT_SID')
+    token = os.environ.get('TWILIO_AUTH_TOKEN')
+    from_phone = os.environ.get('TWILIO_PHONE')
+    to_phone = os.environ.get('BOOKING_NOTIFY_PHONE', '+15856233030')
+
+    if not all([sid, token, from_phone, to_phone]):
+        print(f'[SMS DEBUG] Skipped — sid={bool(sid)} token={bool(token)} from_phone={from_phone!r} to_phone={to_phone!r}', flush=True)
+        return False
+
+    body = (
+        "New Pookie's Pet Care booking request:\n"
+        f"Received: {booking_received_at_mt()}\n"
+        f"Name: {submission['name']}\n"
+        f"Phone: {submission['phone']}\n"
+        f"Email: {submission['email'] or 'N/A'}\n"
+        f"Pet: {submission['pet_name'] or 'N/A'}\n"
+        f"Service: {submission['service'] or 'N/A'}\n"
+        f"Message: {submission['message'] or 'N/A'}"
+    )
+
+    try:
+        Client(sid, token).messages.create(
+            body=body[:1600],
+            from_=from_phone,
+            to=to_phone,
+        )
+        return True
+    except Exception:
+        print('[SMS DEBUG] Twilio raised an exception:', flush=True)
+        traceback.print_exc()
+        return False
+
+
 @app.route('/contact', methods=['POST'])
 def contact():
     """Save a booking request from the homepage contact form."""
@@ -305,23 +352,31 @@ def contact():
     if not name or not phone:
         return jsonify({'success': False, 'error': 'Name and phone are required.'}), 400
 
+    email = (data.get('email') or '').strip()
+    pet_name = (data.get('pet_name') or '').strip()
+    service = (data.get('service') or '').strip()
+    message = (data.get('message') or '').strip()
+
     conn = get_db_connection()
     conn.execute(
         '''
         INSERT INTO contact_submissions (name, phone, email, pet_name, service, message)
         VALUES (?, ?, ?, ?, ?, ?)
         ''',
-        (
-            name,
-            phone,
-            (data.get('email') or '').strip(),
-            (data.get('pet_name') or '').strip(),
-            (data.get('service') or '').strip(),
-            (data.get('message') or '').strip(),
-        ),
+        (name, phone, email, pet_name, service, message),
     )
     conn.commit()
     conn.close()
+
+    send_booking_notification({
+        'name': name,
+        'phone': phone,
+        'email': email,
+        'pet_name': pet_name,
+        'service': service,
+        'message': message,
+    })
+
     return jsonify({'success': True})
 
 @app.route('/chat', methods=['POST'])
@@ -334,7 +389,23 @@ def chat():
     data = request.get_json(silent=True) or {}
     messages = data.get('messages', [])
 
-    system = """You are the booking assistant for Pookie's Pet Care LLC, a trusted dog walking and pet sitting service in the South Denver Metro area run by Chris. Be warm, professional, and concise. Keep responses SHORT — 2-3 sentences max. Help visitors understand services and collect contact info so Chris can follow up. Collect: pet name/type, service needed, neighborhood, their name and phone/email. Services: dog walks starting at $30, drop-ins flexible, overnights starting at $75/night. Area: Lone Tree, Parker, Castle Rock, Highlands Ranch, Centennial, Aurora, Bennett. Once you have all info, confirm and say Chris will reach out within 24 hours. Then output on a new line: LEAD:{"name":"...","pet":"...","service":"...","location":"...","contact":"..."}"""
+    system = """You are the booking assistant for Pookie's Pet Care LLC, a trusted dog walking and pet sitting service in the South Denver Metro area run by Chris. Be warm, professional, and concise. Keep responses SHORT — 2-3 sentences max. Help visitors understand services and collect contact info so Chris can follow up.
+
+Services: dog walks starting at $30, drop-ins flexible, overnights starting at $75/night.
+
+Collect: pet name/type, service needed, neighborhood/city, dates needed, their name and phone/email.
+
+SERVICE AREA — default to yes, never gatekeep:
+Pookie's Pet Care serves the entire South Denver Metro area broadly, including but not limited to: Lone Tree, Parker, Castle Rock, Highlands Ranch, Centennial, Aurora, Bennett, Englewood, Greenwood Village, Littleton, DTC, Cherry Hills Village, Sheridan, Glendale, Columbine, Ken Caryl, Foxfield, and surrounding suburbs. The listed cities are examples, not an exclusive list.
+
+Location rules:
+- If a visitor mentions a city or neighborhood in or near the South Denver Metro, treat it as serviceable. Do not tell them you don't serve their area.
+- For any other Colorado location you're unsure about, still capture their info and say Chris will follow up to confirm — Chris makes the final call, not you.
+- Only flag genuinely out-of-range locations: Fort Collins, Colorado Springs, Boulder, Pueblo, Grand Junction, or anywhere outside Colorado. Even then, stay warm — never just say "we don't serve you" and end the conversation. Say something like: "That's a bit outside Chris's usual area, but go ahead and share your details — he'll reach out and let you know if he can make it work or refer you to someone who can."
+- When in doubt, capture the lead. Your job is to collect info, not qualify or disqualify visitors.
+- NEVER tell a visitor "we don't serve your area" without offering to take their info anyway. No exceptions.
+
+Once you have all info (name, contact, pet, service, location, dates), confirm and say Chris will reach out within 24 hours. Then output on a new line: LEAD:{"name":"...","pet":"...","service":"...","location":"...","contact":"..."}"""
 
     try:
         client = anthropic.Anthropic(api_key=api_key)

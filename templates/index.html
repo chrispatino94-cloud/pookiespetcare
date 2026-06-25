@@ -1094,20 +1094,14 @@
     /* ── CTA / CONTACT ─────────────────────────── */
     .cta-band { background: var(--amber); padding: 88px 52px; }
     .cta-inner {
-      max-width: 1100px;
+      max-width: 640px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      gap: 52px;
-      align-items: start;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      align-items: stretch;
     }
-    .cta-form-wrap {
-      order: 2;
-    }
-    .cta-copy {
-      order: 1;
-    }
-    .cta-copy { text-align: left; }
+    .cta-intro { text-align: left; }
     .cta-band h2 { color: var(--white); margin-bottom: 12px; }
     .cta-band h2 em { color: rgba(255,255,255,.8); }
     .cta-band .sub-text { color: rgba(255,255,255,.88); margin: 0 0 28px; max-width: none; }
@@ -1141,7 +1135,6 @@
       box-shadow: 0 8px 32px rgba(0,0,0,.12);
     }
     .text-template-box {
-      margin-top: 28px;
       background: rgba(255, 255, 255, 0.14);
       border: 1px solid rgba(255, 255, 255, 0.28);
       border-radius: 16px;
@@ -1633,9 +1626,6 @@
       .visit-grid--4 { grid-template-columns: repeat(2, 1fr); max-width: 680px; }
       .visit-grid--5 .visit-photo { grid-column: auto !important; }
       .trust-cards { grid-template-columns: repeat(2, 1fr); }
-      .cta-inner { grid-template-columns: 1fr; gap: 36px; }
-      .cta-form-wrap { order: 1; }
-      .cta-copy { order: 2; }
       .every-visit-inner { grid-template-columns: 1fr; gap: 32px; }
     }
     @media (max-width: 560px) {
@@ -1656,7 +1646,8 @@
       .trust-inner { gap: 18px; }
       .form-row { grid-template-columns: 1fr; }
       .cta-band { padding: 64px 24px; }
-      .cta-copy { text-align: center; }
+      .cta-intro { text-align: center; }
+      .cta-phone-row { justify-content: center; }
       .cta-band .sub-text { margin: 0 auto 28px; }
 
       /* Show hamburger, hide desktop nav links */
@@ -2156,11 +2147,15 @@
           <span class="service-area-city">Parker</span>
           <span class="service-area-city">Castle Rock</span>
           <span class="service-area-city">Highlands Ranch</span>
+          <span class="service-area-city">Centennial</span>
+          <span class="service-area-city">Littleton</span>
+          <span class="service-area-city">Englewood</span>
+          <span class="service-area-city">Greenwood Village</span>
+          <span class="service-area-city">DTC</span>
           <span class="service-area-city">Aurora</span>
           <span class="service-area-city">Bennett</span>
-          <span class="service-area-city">Centennial</span>
         </div>
-        <p class="service-area-note">Focused local coverage — reliable, on-time dog walking and pet care near you.</p>
+        <p class="service-area-note">Need care nearby? Text Chris with your city and dates, and I'll let you know if I can help.</p>
       </div>
     </div>
   </div>
@@ -2213,20 +2208,19 @@
 <!-- ─── CTA / CONTACT ──────────────────────────────────── -->
 <section class="cta-band" id="contact">
   <div class="cta-inner">
-    <div class="cta-copy">
+    <div class="cta-intro">
       <h2>Ready to Book<br><em>Pet Care?</em></h2>
       <p class="sub-text">Call or send a message with your pet's name, service needed, location, and preferred dates.</p>
-      <div class="cta-phone-row">
-        <a href="#" class="btn-white phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Call Chris</a>
-        <a href="sms:5856233030" class="btn-white btn-white-secondary sms-link">{{ ppc_icon('message-square', 'ppc-icon--btn') }} Text Chris</a>
-      </div>
-      <div class="text-template-box">
-        <p class="text-template-title">Not sure what to say? Copy this text:</p>
-        <p class="text-template-message" id="text-template-message">Hi Chris, I'm looking for care for [pet name]. We need [walks/drop-ins/overnights] in [city] around [dates]. Are you available?</p>
-        <button type="button" class="text-template-copy-btn" id="text-template-copy-btn">Copy</button>
-      </div>
     </div>
-    <div class="cta-form-wrap">
+    <div class="cta-phone-row">
+      <a href="#" class="btn-white phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Call Chris</a>
+      <a href="sms:5856233030" class="btn-white btn-white-secondary sms-link">{{ ppc_icon('message-square', 'ppc-icon--btn') }} Text Chris</a>
+    </div>
+    <div class="text-template-box">
+      <p class="text-template-title">Not sure what to say? Copy this text:</p>
+      <p class="text-template-message" id="text-template-message">Hi Chris, I'm looking for care for [pet name]. We need [walks/drop-ins/overnights] in [city] around [dates]. Are you available?</p>
+      <button type="button" class="text-template-copy-btn" id="text-template-copy-btn">Copy</button>
+    </div>
     <div class="contact-form-card" id="contact-form-card">
       <h3 class="contact-form-title">Send a Booking Request</h3>
       <form class="contact-form" id="contact-form" novalidate>
@@ -2268,7 +2262,6 @@
         <button type="submit" class="btn-form-submit">Send Message</button>
         <p class="contact-form-note">Chris responds quickly by phone or text. You can also use the chat button if you have a quick question.</p>
       </form>
-    </div>
     </div>
   </div>
 </section>
