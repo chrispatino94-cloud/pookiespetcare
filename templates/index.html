@@ -721,6 +721,27 @@
     .stat-n { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 600; color: var(--text); line-height: 1; }
     .stat-l { font-size: .76rem; color: var(--text-lt); margin-top: 4px; }
 
+    /* ── BEST FOR ──────────────────────────────── */
+    .best-for-sec { background: var(--white); padding: 80px 52px; }
+    .best-for-head {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 40px;
+    }
+    .best-for-head .sub-text { margin: 0 auto; text-align: center; max-width: 560px; }
+    .best-for-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .best-for-grid .trust-card {
+      padding: 22px 20px;
+      text-align: center;
+    }
+    .best-for-grid .trust-card-title { margin-bottom: 0; font-size: .92rem; }
+
     /* ── VISIT GALLERY ─────────────────────────── */
     .visit-sec { background: var(--white); padding: 72px 52px; }
     .visit-head {
@@ -1118,6 +1139,50 @@
       border-color: var(--white);
       color: var(--white);
       box-shadow: 0 8px 32px rgba(0,0,0,.12);
+    }
+    .text-template-box {
+      margin-top: 28px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 16px;
+      padding: 20px 22px;
+      text-align: left;
+    }
+    .text-template-title {
+      font-size: .82rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.92);
+      margin-bottom: 12px;
+      letter-spacing: .02em;
+    }
+    .text-template-message {
+      font-size: .88rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.88);
+      font-weight: 300;
+      margin-bottom: 14px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .text-template-copy-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      color: var(--amber);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: .82rem;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    }
+    .text-template-copy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
     }
     .contact-form-success {
       background: #ecfdf3;
@@ -1586,6 +1651,7 @@
       section { padding: 64px 24px; }
       .trust-sec { padding: 40px 24px; }
       .trust-cards { grid-template-columns: 1fr; gap: 12px; }
+      .best-for-grid { grid-template-columns: 1fr; }
       .trust-bar { padding: 16px 24px; }
       .trust-inner { gap: 18px; }
       .form-row { grid-template-columns: 1fr; }
@@ -1646,7 +1712,7 @@
         padding: 14px 28px;
       }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .hiw-sec, .every-visit-sec { padding: 64px 24px; }
+      .hiw-sec, .every-visit-sec, .best-for-sec { padding: 64px 24px; }
       .hiw-grid { grid-template-columns: 1fr; gap: 12px; max-width: none; }
       .hiw-step:nth-child(3) {
         grid-column: auto;
@@ -1956,6 +2022,34 @@
   </div>
 </section>
 
+<!-- ─── BEST FOR ──────────────────────────────────────── -->
+<section class="best-for-sec" id="best-for" aria-label="Who Pookie's Pet Care is best for">
+  <div class="si">
+    <div class="best-for-head">
+      <p class="label">A Good Fit</p>
+      <h2>Best for pets who need familiar, <em>dependable care</em></h2>
+      <p class="sub-text">Whether your dog is anxious, older, full of energy, or just does better with the same trusted person every visit, Pookie's Pet Care is built around calm, consistent, one-on-one care.</p>
+    </div>
+    <div class="best-for-grid">
+      <div class="trust-card">
+        <p class="trust-card-title">Anxious or shy dogs</p>
+      </div>
+      <div class="trust-card">
+        <p class="trust-card-title">Senior pets who need patience</p>
+      </div>
+      <div class="trust-card">
+        <p class="trust-card-title">High-energy dogs who need real walks</p>
+      </div>
+      <div class="trust-card">
+        <p class="trust-card-title">Busy families who want dependable updates</p>
+      </div>
+      <div class="trust-card">
+        <p class="trust-card-title">Pets who do better with the same person every time</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── VISIT GALLERY ─────────────────────────────────── -->
 <section class="visit-sec" id="visits" aria-label="Pet visit photos">
   <div class="si">
@@ -2126,6 +2220,11 @@
         <a href="#" class="btn-white phone-link">{{ ppc_icon('smartphone', 'ppc-icon--btn') }} Call Chris</a>
         <a href="sms:5856233030" class="btn-white btn-white-secondary sms-link">{{ ppc_icon('message-square', 'ppc-icon--btn') }} Text Chris</a>
       </div>
+      <div class="text-template-box">
+        <p class="text-template-title">Not sure what to say? Copy this text:</p>
+        <p class="text-template-message" id="text-template-message">Hi Chris, I'm looking for care for [pet name]. We need [walks/drop-ins/overnights] in [city] around [dates]. Are you available?</p>
+        <button type="button" class="text-template-copy-btn" id="text-template-copy-btn">Copy</button>
+      </div>
     </div>
     <div class="cta-form-wrap">
     <div class="contact-form-card" id="contact-form-card">
@@ -2283,6 +2382,27 @@
   document.querySelectorAll('.phone-display').forEach(el => {
     el.textContent = PHONE_DISPLAY;
   });
+
+  const textTemplateCopyBtn = document.getElementById('text-template-copy-btn');
+  const textTemplateMessage = document.getElementById('text-template-message');
+  if (textTemplateCopyBtn && textTemplateMessage) {
+    textTemplateCopyBtn.addEventListener('click', async () => {
+      const message = textTemplateMessage.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(message);
+        const originalLabel = textTemplateCopyBtn.textContent;
+        textTemplateCopyBtn.textContent = 'Copied!';
+        setTimeout(() => {
+          textTemplateCopyBtn.textContent = originalLabel;
+        }, 2000);
+      } catch (_) {
+        textTemplateCopyBtn.textContent = 'Copy failed';
+        setTimeout(() => {
+          textTemplateCopyBtn.textContent = 'Copy';
+        }, 2000);
+      }
+    });
+  }
 
   // Contact form — POST to /contact, save to SQLite
   const contactForm = document.getElementById('contact-form');
