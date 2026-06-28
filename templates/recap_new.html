@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Visit Recap | Pookie's Pet Care</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --g-dark:   #192f19;
+      --g-mid:    #2b5220;
+      --g-light:  #4a7c3f;
+      --cream:    #f6f1e6;
+      --cream-dk: #ede7d7;
+      --amber:    #c47a2a;
+      --amber-lt: #e8963a;
+      --text:     #121f12;
+      --text-mid: #495949;
+      --white:    #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px 20px 40px;
+    }
+    .wrap { max-width: 420px; margin: 0 auto; }
+    .brand {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--g-mid);
+      margin-bottom: 6px;
+    }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--g-dark);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .subtitle {
+      color: var(--text-mid);
+      font-size: .95rem;
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .error {
+      background: #fdecea;
+      border: 1px solid #f5c2c0;
+      color: #7a1f1a;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: .9rem;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--g-mid);
+      margin-bottom: 8px;
+    }
+    .field { margin-bottom: 20px; }
+    input[type="text"],
+    textarea {
+      width: 100%;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      color: var(--text);
+      background: var(--white);
+      border: 1px solid var(--cream-dk);
+      border-radius: 14px;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: var(--g-light);
+      box-shadow: 0 0 0 3px rgba(74, 124, 63, .15);
+    }
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+    input[type="file"] {
+      width: 100%;
+      font-size: .92rem;
+      color: var(--text-mid);
+      background: var(--white);
+      border: 1px dashed var(--cream-dk);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    .hint {
+      font-size: .82rem;
+      color: var(--text-mid);
+      margin-top: 6px;
+    }
+    button {
+      width: 100%;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      background: var(--amber);
+      border: none;
+      border-radius: 50px;
+      padding: 16px 24px;
+      min-height: 52px;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+      margin-top: 8px;
+    }
+    button:hover { background: var(--amber-lt); transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="brand">Pookie's Pet Care</p>
+    <h1>Visit recap</h1>
+    <p class="subtitle">Quick notes after a walk or sit — we'll turn them into a card the owner can screenshot.</p>
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="{{ url_for('recap_create', key=key) }}" enctype="multipart/form-data">
+      <div class="field">
+        <label for="pet_name">Pet name</label>
+        <input type="text" id="pet_name" name="pet_name" required
+               value="{{ pet_name or '' }}" placeholder="Billy" autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label for="service">Service</label>
+        <input type="text" id="service" name="service"
+               value="{{ service or '' }}" placeholder="Dog walk, drop-in, overnight…" />
+      </div>
+
+      <div class="field">
+        <label for="visit_notes">What happened on the visit?</label>
+        <textarea id="visit_notes" name="visit_notes" required
+                  placeholder="Full loop around the block, lots of sniffing, crashed in a sunbeam after.">{{ visit_notes or '' }}</textarea>
+      </div>
+
+      <div class="field">
+        <label for="photo">Photo (optional)</label>
+        <input type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/webp" />
+        <p class="hint">A visit photo makes the card pop. JPG, PNG, or WebP.</p>
+      </div>
+
+      <button type="submit">Create recap card</button>
+    </form>
+  </div>
+</body>
+</html>
