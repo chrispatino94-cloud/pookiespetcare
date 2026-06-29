@@ -1,10 +1,20 @@
 import sqlite3
 import os
+import secrets
 import datetime
+import traceback
+from zoneinfo import ZoneInfo
 
 import anthropic
 from dotenv import load_dotenv
-from flask import Flask, render_template, abort, request, jsonify
+from flask import Flask, render_template, abort, request, jsonify, redirect
+from twilio.rest import Client
+
+try:
+    from PIL import Image
+    HAS_PILLOW = True
+except ImportError:
+    HAS_PILLOW = False
 
 from blog_generator import generate_post
 
@@ -14,6 +24,9 @@ app = Flask(__name__)
 
 BLOG_DEFAULT_IMAGE = 'default-dog-care.jpg'
 BLOG_DEFAULT_ALT = "Dog care tips from Pookie's Pet Care"
+
+RECAP_IMAGE_MAX_EDGE = 1080
+ALLOWED_RECAP_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp'}
 
 # Google Business Profile links.
 # For "Leave a review": Google Business Profile → Ask for reviews → copy link,
@@ -230,10 +243,140 @@ def init_db():
     ''')
     conn.commit()
 
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS recaps (
+            id             INTEGER PRIMARY KEY AUTOINCREMENT,
+            pet_name       TEXT NOT NULL,
+            service        TEXT,
+            visit_notes    TEXT NOT NULL,
+            recap_text     TEXT NOT NULL,
+            image_filename TEXT,
+            share_slug     TEXT UNIQUE NOT NULL,
+            created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    conn.commit()
+
     conn.close()
 
 # Run once at startup — creates the table if it doesn't exist yet
 init_db()
+
+if not HAS_PILLOW:
+    print(
+        '[RECAP] Pillow not installed — recap photos will save at full size. '
+        'Add Pillow to requirements.txt for automatic downscaling.',
+        flush=True,
+    )
+
+# ── Visit recap helpers ───────────────────────────────────────────────────────
+
+def require_cron_key():
+    """Return True when ?key= matches CRON_SECRET."""
+    key = request.args.get('key', '')
+    return key == os.environ.get('CRON_SECRET', '')
+
+
+def get_recap_images_dir():
+    """Ensure static/recap_images exists and return its path."""
+    images_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'recap_images')
+    os.makedirs(images_dir, exist_ok=True)
+    return images_dir
+
+
+def save_recap_image(file_storage):
+    """Save an uploaded recap photo. Downscale with Pillow when available."""
+    if not file_storage or not file_storage.filename:
+        return None
+
+    ext = os.path.splitext(file_storage.filename)[1].lower()
+    if ext not in ALLOWED_RECAP_EXTENSIONS:
+        return None
+
+    token = secrets.token_hex(8)
+    images_dir = get_recap_images_dir()
+
+    if HAS_PILLOW:
+        try:
+            img = Image.open(file_storage.stream)
+            img = img.convert('RGB')
+            width, height = img.size
+            long_edge = max(width, height)
+            if long_edge > RECAP_IMAGE_MAX_EDGE:
+                ratio = RECAP_IMAGE_MAX_EDGE / long_edge
+                img = img.resize(
+                    (int(width * ratio), int(height * ratio)),
+                    Image.LANCZOS,
+                )
+            filename = f'recap-{token}.jpg'
+            img.save(
+                os.path.join(images_dir, filename),
+                'JPEG',
+                quality=85,
+                optimize=True,
+            )
+            return filename
+        except Exception:
+            app.logger.exception('Failed to process recap image with Pillow')
+            return None
+
+    app.logger.warning(
+        'Pillow not installed — saving recap photo without resize. '
+        'Add Pillow to requirements.txt for automatic downscaling.'
+    )
+    save_ext = '.jpg' if ext in ('.jpg', '.jpeg') else ext
+    filename = f'recap-{token}{save_ext}'
+    file_storage.save(os.path.join(images_dir, filename))
+    return filename
+
+
+def fallback_recap_text(pet_name, service, visit_notes):
+    """Simple static recap when the AI call fails."""
+    notes = visit_notes.strip()
+    first_sentence = notes.split('.')[0].strip() if notes else ''
+    if first_sentence and not first_sentence.endswith('.'):
+        first_sentence += '.'
+    service_bit = f'{service} ' if service else ''
+    if first_sentence:
+        return f"Had a great {service_bit}visit with {pet_name} today. {first_sentence}"
+    return f"Had a great {service_bit}visit with {pet_name} today — all went well!"
+
+
+def generate_recap_text(pet_name, service, visit_notes):
+    """Turn raw visit notes into a warm first-person recap."""
+    api_key = os.environ.get('ANTHROPIC_API_KEY')
+    if not api_key:
+        app.logger.warning('ANTHROPIC_API_KEY not set — using fallback recap text')
+        return fallback_recap_text(pet_name, service, visit_notes)
+
+    system = (
+        "You write short visit recaps for Pookie's Pet Care, a local dog walking and "
+        "pet sitting service run by Chris in the South Denver Metro area. "
+        "Write 2-3 sentences in first person from Chris's POV. Warm, casual, specific — "
+        "like a text to a friend about their pet. No corporate tone, no bullet points, "
+        "no greetings or sign-offs. Just the recap."
+    )
+    user_message = (
+        f"Pet name: {pet_name}\n"
+        f"Service: {service or 'pet care visit'}\n"
+        f"Visit notes: {visit_notes}"
+    )
+
+    try:
+        client = anthropic.Anthropic(api_key=api_key)
+        response = client.messages.create(
+            model='claude-sonnet-4-6',
+            max_tokens=200,
+            system=system,
+            messages=[{'role': 'user', 'content': user_message}],
+        )
+        text = response.content[0].text.strip()
+        if text:
+            return text
+    except Exception:
+        app.logger.exception('Recap AI generation failed — using fallback')
+
+    return fallback_recap_text(pet_name, service, visit_notes)
 
 # ── Template filter ───────────────────────────────────────────────────────────
 
@@ -284,6 +427,66 @@ def blog_post(post_id):
         abort(404)
     return render_template('blog_post.html', post=post)
 
+@app.route('/recap/new')
+def recap_new():
+    """Mobile-friendly form to create a visit recap card."""
+    if not require_cron_key():
+        return 'Forbidden', 403
+    return render_template('recap_new.html', key=request.args.get('key', ''))
+
+
+@app.route('/recap/create', methods=['POST'])
+def recap_create():
+    """Save visit details, generate recap text, and redirect to the shareable card."""
+    if not require_cron_key():
+        return 'Forbidden', 403
+
+    pet_name = (request.form.get('pet_name') or '').strip()
+    service = (request.form.get('service') or '').strip()
+    visit_notes = (request.form.get('visit_notes') or '').strip()
+    cron_key = request.args.get('key', '')
+
+    if not pet_name or not visit_notes:
+        return render_template(
+            'recap_new.html',
+            key=cron_key,
+            error='Pet name and visit notes are required.',
+            pet_name=pet_name,
+            service=service,
+            visit_notes=visit_notes,
+        ), 400
+
+    image_filename = save_recap_image(request.files.get('photo'))
+    recap_text = generate_recap_text(pet_name, service, visit_notes)
+    share_slug = secrets.token_urlsafe(16)
+
+    conn = get_db_connection()
+    conn.execute(
+        '''
+        INSERT INTO recaps (pet_name, service, visit_notes, recap_text, image_filename, share_slug)
+        VALUES (?, ?, ?, ?, ?, ?)
+        ''',
+        (pet_name, service, visit_notes, recap_text, image_filename, share_slug),
+    )
+    conn.commit()
+    conn.close()
+
+    return redirect(f'/recap/{share_slug}')
+
+
+@app.route('/recap/<share_slug>')
+def recap_view(share_slug):
+    """Public shareable visit recap card."""
+    conn = get_db_connection()
+    recap = conn.execute(
+        'SELECT * FROM recaps WHERE share_slug = ?', (share_slug,)
+    ).fetchone()
+    conn.close()
+    if recap is None:
+        abort(404)
+    return render_template('recap_card.html', recap=recap)
+
+
 @app.route('/run-blog-generator')
 def run_blog_generator():
     key = request.args.get('key', '')
@@ -295,6 +498,50 @@ def run_blog_generator():
     except Exception as e:
         return f"Error: {e}", 500
 
+def booking_received_at_mt():
+    """Format current time in Mountain Time for SMS notifications."""
+    now = datetime.datetime.now(ZoneInfo('America/Denver'))
+    hour = now.hour % 12 or 12
+    ampm = 'am' if now.hour < 12 else 'pm'
+    return f"{now:%Y-%m-%d} {hour}:{now.minute:02d}{ampm} MT"
+
+
+def send_booking_notification(submission):
+    """SMS Chris when a booking form is submitted. Returns True if sent."""
+    print('[SMS DEBUG] send_booking_notification called', flush=True)
+    sid = os.environ.get('TWILIO_ACCOUNT_SID')
+    token = os.environ.get('TWILIO_AUTH_TOKEN')
+    from_phone = os.environ.get('TWILIO_PHONE')
+    to_phone = os.environ.get('BOOKING_NOTIFY_PHONE', '+15856233030')
+
+    if not all([sid, token, from_phone, to_phone]):
+        print(f'[SMS DEBUG] Skipped — sid={bool(sid)} token={bool(token)} from_phone={from_phone!r} to_phone={to_phone!r}', flush=True)
+        return False
+
+    body = (
+        "New Pookie's Pet Care booking request:\n"
+        f"Received: {booking_received_at_mt()}\n"
+        f"Name: {submission['name']}\n"
+        f"Phone: {submission['phone']}\n"
+        f"Email: {submission['email'] or 'N/A'}\n"
+        f"Pet: {submission['pet_name'] or 'N/A'}\n"
+        f"Service: {submission['service'] or 'N/A'}\n"
+        f"Message: {submission['message'] or 'N/A'}"
+    )
+
+    try:
+        Client(sid, token).messages.create(
+            body=body[:1600],
+            from_=from_phone,
+            to=to_phone,
+        )
+        return True
+    except Exception:
+        print('[SMS DEBUG] Twilio raised an exception:', flush=True)
+        traceback.print_exc()
+        return False
+
+
 @app.route('/contact', methods=['POST'])
 def contact():
     """Save a booking request from the homepage contact form."""
@@ -305,23 +552,31 @@ def contact():
     if not name or not phone:
         return jsonify({'success': False, 'error': 'Name and phone are required.'}), 400
 
+    email = (data.get('email') or '').strip()
+    pet_name = (data.get('pet_name') or '').strip()
+    service = (data.get('service') or '').strip()
+    message = (data.get('message') or '').strip()
+
     conn = get_db_connection()
     conn.execute(
         '''
         INSERT INTO contact_submissions (name, phone, email, pet_name, service, message)
         VALUES (?, ?, ?, ?, ?, ?)
         ''',
-        (
-            name,
-            phone,
-            (data.get('email') or '').strip(),
-            (data.get('pet_name') or '').strip(),
-            (data.get('service') or '').strip(),
-            (data.get('message') or '').strip(),
-        ),
+        (name, phone, email, pet_name, service, message),
     )
     conn.commit()
     conn.close()
+
+    send_booking_notification({
+        'name': name,
+        'phone': phone,
+        'email': email,
+        'pet_name': pet_name,
+        'service': service,
+        'message': message,
+    })
+
     return jsonify({'success': True})
 
 @app.route('/chat', methods=['POST'])
@@ -334,7 +589,23 @@ def chat():
     data = request.get_json(silent=True) or {}
     messages = data.get('messages', [])
 
-    system = """You are the booking assistant for Pookie's Pet Care LLC, a trusted dog walking and pet sitting service in the South Denver Metro area run by Chris. Be warm, professional, and concise. Keep responses SHORT — 2-3 sentences max. Help visitors understand services and collect contact info so Chris can follow up. Collect: pet name/type, service needed, neighborhood, their name and phone/email. Services: dog walks starting at $30, drop-ins flexible, overnights starting at $75/night. Area: Lone Tree, Parker, Castle Rock, Highlands Ranch, Centennial, Aurora, Bennett. Once you have all info, confirm and say Chris will reach out within 24 hours. Then output on a new line: LEAD:{"name":"...","pet":"...","service":"...","location":"...","contact":"..."}"""
+    system = """You are the booking assistant for Pookie's Pet Care LLC, a trusted dog walking and pet sitting service in the South Denver Metro area run by Chris. Be warm, professional, and concise. Keep responses SHORT — 2-3 sentences max. Help visitors understand services and collect contact info so Chris can follow up.
+
+Services: dog walks starting at $30, drop-ins flexible, overnights starting at $75/night.
+
+Collect: pet name/type, service needed, neighborhood/city, dates needed, their name and phone/email.
+
+SERVICE AREA — default to yes, never gatekeep:
+Pookie's Pet Care serves the entire South Denver Metro area broadly, including but not limited to: Lone Tree, Parker, Castle Rock, Highlands Ranch, Centennial, Aurora, Bennett, Englewood, Greenwood Village, Littleton, DTC, Cherry Hills Village, Sheridan, Glendale, Columbine, Ken Caryl, Foxfield, and surrounding suburbs. The listed cities are examples, not an exclusive list.
+
+Location rules:
+- If a visitor mentions a city or neighborhood in or near the South Denver Metro, treat it as serviceable. Do not tell them you don't serve their area.
+- For any other Colorado location you're unsure about, still capture their info and say Chris will follow up to confirm — Chris makes the final call, not you.
+- Only flag genuinely out-of-range locations: Fort Collins, Colorado Springs, Boulder, Pueblo, Grand Junction, or anywhere outside Colorado. Even then, stay warm — never just say "we don't serve you" and end the conversation. Say something like: "That's a bit outside Chris's usual area, but go ahead and share your details — he'll reach out and let you know if he can make it work or refer you to someone who can."
+- When in doubt, capture the lead. Your job is to collect info, not qualify or disqualify visitors.
+- NEVER tell a visitor "we don't serve your area" without offering to take their info anyway. No exceptions.
+
+Once you have all info (name, contact, pet, service, location, dates), confirm and say Chris will reach out within 24 hours. Then output on a new line: LEAD:{"name":"...","pet":"...","service":"...","location":"...","contact":"..."}"""
 
     try:
         client = anthropic.Anthropic(api_key=api_key)
